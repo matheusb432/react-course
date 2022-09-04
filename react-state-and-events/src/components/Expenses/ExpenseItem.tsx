@@ -1,10 +1,15 @@
 import { useState } from 'react';
-import { ExpenseItemProps } from '../../model/expense-item';
 import Card from '../UI/Card';
 import DateItem from './DateItem';
 import './ExpenseItem.css';
 
-function ExpenseItem({ date, title: titleText, price }: ExpenseItemProps) {
+export interface ExpenseItemProps {
+  date: Date;
+  title: string;
+  amount: number;
+}
+
+function ExpenseItem({ date, title: titleText, amount }: ExpenseItemProps) {
   const [title, setTitle] = useState(titleText);
 
   const clickHandler = (): void => {
@@ -16,7 +21,7 @@ function ExpenseItem({ date, title: titleText, price }: ExpenseItemProps) {
       <DateItem date={date} />
       <div className="expense-item__description">
         <h2>{title}</h2>
-        <div className="expense-item__price">${price}</div>
+        <div className="expense-item__price">${amount}</div>
       </div>
       <button onClick={clickHandler}>Change Title</button>
     </Card>
