@@ -1,0 +1,4 @@
+--  Project made to practice core React concepts from scratch.
+
+==  TODO
+    --  Add SCSS

@@ -1,18 +1,13 @@
-import React from 'react';
-
 import './CourseGoalItem.css';
 
 interface CourseGoalItemProps {
   children: JSX.Element | JSX.Element[];
-  id: string
+  id: string;
   onDelete: (id: string) => void;
 }
 
-const CourseGoalItem = ({children,onDelete,id}: CourseGoalItemProps) => {
-  // const [deleteText, setDeleteText] = useState('');
-
+const CourseGoalItem = ({ children, onDelete, id }: CourseGoalItemProps) => {
   const deleteHandler = () => {
-    // setDeleteText('(Deleted!)');
     onDelete(id);
   };
 

@@ -1,0 +1,12 @@
+.container {
+  height: 100%;
+  /* width: 90%; */
+  width: 90%;
+  padding: 56px 112px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  overflow: auto;
+}

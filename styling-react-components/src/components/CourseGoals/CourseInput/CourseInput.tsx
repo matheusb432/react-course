@@ -47,14 +47,6 @@ const StyledFormControl = styled(FormControl)`
     border-color: #8b005d;
   }
 `;
-// &.invalid input {
-//   border-color: red;
-//   background-color: #ffd7d7;
-// }
-
-// &.invalid label {
-//   color: red;
-// }
 
 const CourseInput = ({ onAddGoal }: CourseInputProps) => {
   const [enteredValue, setEnteredValue] = useState('');
