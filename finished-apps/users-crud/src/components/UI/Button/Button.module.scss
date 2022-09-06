@@ -5,14 +5,14 @@
   color: white;
   padding: 0.25rem 1rem;
   cursor: pointer;
-}
 
-.button:hover,
-.button:active {
-  background: #741188;
-  border-color: #741188;
-}
+  &:hover,
+  &:active {
+    background: #741188;
+    border-color: #741188;
+  }
 
-.button:focus {
-  outline: none;
+  &:focus {
+    outline: none;
+  }
 }

@@ -29,14 +29,14 @@
   border-top-left-radius: 16px;
   border-top-right-radius: 16px;
   color: #fff;
-}
 
-.modal-header span {
-  position: absolute;
-  left: 12px;
-  top: 12px;
-  font-size: 1.5rem;
-  font-weight: bold;
+  & span {
+    position: absolute;
+    left: 12px;
+    top: 12px;
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
 }
 
 .modal-body {

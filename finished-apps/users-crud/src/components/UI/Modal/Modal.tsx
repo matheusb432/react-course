@@ -1,5 +1,5 @@
 import Button from '../Button/Button';
-import styles from './Modal.module.css';
+import styles from './Modal.module.scss';
 
 interface ModalProps {
   children: React.ReactNode;

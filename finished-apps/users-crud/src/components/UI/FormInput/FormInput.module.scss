@@ -14,10 +14,16 @@
   border: 2px #ccc solid;
   border-radius: 4px;
   transition: all 0.2s ease-in-out;
+
+  &:focus,
+  &:hover {
+    outline: none;
+    border-color: blueviolet;
+  }
 }
 
-.input:focus,
-.input:hover {
-  outline: none;
-  border-color: blueviolet;
-}
+// .input:focus,
+// .input:hover {
+//   outline: none;
+//   border-color: blueviolet;
+// }

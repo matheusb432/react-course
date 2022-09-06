@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { User } from '../../../types';
 import { Button, FormInput } from '../../UI';
 import Card from '../../UI/Card/Card';
-import styles from './UserForm.module.css';
+import styles from './UserForm.module.scss';
 
 interface UserFormProps {
   user?: User;

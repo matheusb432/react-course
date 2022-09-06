@@ -1,4 +1,4 @@
-import styles from './Icon.module.css';
+import styles from './Icon.module.scss';
 
 interface IconProps {
   icon: JSX.Element;

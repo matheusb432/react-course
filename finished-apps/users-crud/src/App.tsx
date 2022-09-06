@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { Modal, UserForm, UserList } from './components';
 import { User } from './types';
 
-import styles from './App.module.css';
+import styles from './App.module.scss';
 import { validateString } from './utils/validations';
 
 const App = () => {

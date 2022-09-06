@@ -1,6 +1,6 @@
 import { User } from '../../../types';
 import { DeleteIcon, EditIcon, Icon } from '../../UI';
-import styles from './UserItem.module.css';
+import styles from './UserItem.module.scss';
 
 interface UserItemProps {
   user: User;

@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { User } from '../../../types';
 import Card from '../../UI/Card/Card';
 import UserItem from '../UserItem/UserItem';
-import styles from './UserList.module.css';
+import styles from './UserList.module.scss';
 
 interface UserListProps {
   users: User[];

@@ -1,4 +1,4 @@
-import styles from './FormInput.module.css';
+import styles from './FormInput.module.scss';
 
 import { ChangeInputEvent } from '../../../types/change-input-event';
 
