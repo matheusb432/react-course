@@ -21,8 +21,13 @@ const FormInput = ({
 
   return (
     <div className={styles['form-input']}>
-      <label>{label}</label>
-      <input type={type} value={value} onChange={updateValue} />
+      <label className={styles.label}>{label}</label>
+      <input
+        className={styles.input}
+        type={type}
+        value={value}
+        onChange={updateValue}
+      />
     </div>
   );
 };

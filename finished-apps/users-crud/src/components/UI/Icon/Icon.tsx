@@ -6,7 +6,11 @@ interface IconProps {
 }
 
 const Icon = ({ icon, onClick }: IconProps) => {
-  return <button onClick={onClick}>{icon}</button>;
+  return (
+    <button className={styles['icon-button']} onClick={onClick}>
+      {icon}
+    </button>
+  );
 };
 
 export default Icon;

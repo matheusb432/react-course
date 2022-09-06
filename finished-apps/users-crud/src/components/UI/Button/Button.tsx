@@ -14,7 +14,10 @@ const Button = ({
   type = 'submit',
 }: ButtonProps) => {
   return (
-    <button type={type} className={` ${className ?? ''}`} onClick={onClick}>
+    <button
+      type={type}
+      className={`${styles.button} ${className ?? ''}`}
+      onClick={onClick}>
       {children}
     </button>
   );

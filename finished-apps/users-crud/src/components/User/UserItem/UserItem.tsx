@@ -13,13 +13,11 @@ const UserItem = ({ user, onDelete, onEdit }: UserItemProps) => {
     <li className={styles['list-item']}>
       {user.name} ({user.age} years old)
       <div className={styles.actions}>
-        <button onClick={() => onEdit(user.id as string)}>EDIT</button>
-        <button onClick={() => onDelete(user.id as string)}>DELETE</button>
-        {/* <Icon onClick={() => onEdit(user.id as string)} icon={<EditIcon />} />
+        <Icon onClick={() => onEdit(user.id as string)} icon={<EditIcon />} />
         <Icon
           onClick={() => onDelete(user.id as string)}
           icon={<DeleteIcon />}
-        /> */}
+        />
       </div>
     </li>
   );

@@ -1,4 +1,6 @@
+import { useCallback, useEffect, useState } from 'react';
 import { User } from '../../../types';
+import Card from '../../UI/Card/Card';
 import UserItem from '../UserItem/UserItem';
 import styles from './UserList.module.css';
 
@@ -9,14 +11,28 @@ interface UserListProps {
 }
 
 const UserList = ({ users, onEdit, onDelete }: UserListProps) => {
-  const renderUsers = () => {
-    return users.map((u) => (
-      <UserItem key={u.id} user={u} onEdit={onEdit} onDelete={onDelete} />
-    ));
-  };
+  const hasUsers = () => users?.length > 0;
+  const [renderedUsers, setRenderedUsers] = useState<JSX.Element | null>(null);
+
+  const renderUsers = useCallback(() => {
+    const sortedUsers = [...users].sort((a, b) => a.name.localeCompare(b.name));
+
+    return (
+      <ul className={styles['users-list']}>
+        {' '}
+        {sortedUsers.map((u) => (
+          <UserItem key={u.id} user={u} onEdit={onEdit} onDelete={onDelete} />
+        ))}
+      </ul>
+    );
+  }, [onDelete, onEdit, users]);
+
+  useEffect(() => {
+    setRenderedUsers(renderUsers());
+  }, [renderUsers, users]);
 
   return (
-    <ul className={styles['users-list']}>{users ? renderUsers() : null}</ul>
+    <Card>{hasUsers() ? renderedUsers : <p>No users registered.</p>}</Card>
   );
 };
 

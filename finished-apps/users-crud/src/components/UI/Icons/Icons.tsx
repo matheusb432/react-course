@@ -1,3 +1,5 @@
+import styles from './Icons.module.css';
+
 interface IconProps {
   className?: string;
 }
@@ -9,7 +11,7 @@ const DeleteIcon = ({ className }: IconProps) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className={`icon ${className ? className : ''}`}>
+    className={`${styles.icon} ${className ? className : ''}`}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"
@@ -25,7 +27,7 @@ const EditIcon = ({ className }: IconProps) => (
     viewBox="0 0 24 24"
     strokeWidth={1.5}
     stroke="currentColor"
-    className={`icon ${className ? className : ''}`}>
+    className={`${styles.icon} ${className ? className : ''}`}>
     <path
       strokeLinecap="round"
       strokeLinejoin="round"

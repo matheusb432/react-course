@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { User } from '../../../types';
-import { ChangeInputEvent } from '../../../types/change-input-event';
 import { Button, FormInput } from '../../UI';
+import Card from '../../UI/Card/Card';
 import styles from './UserForm.module.css';
 
 interface UserFormProps {
@@ -19,26 +19,30 @@ const UserForm = ({
 }: UserFormProps) => {
   const [name, setName] = useState('');
   const [age, setAge] = useState('');
+  const [id, setId] = useState<string | undefined>('');
 
   useEffect(() => {
     if (user == null) return;
 
     setName(user.name);
-    setName(user.age);
+    setAge(user.age);
+    setId(user.id);
   }, [user]);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
 
-    onSubmitUser({ id: Math.random().toString(), name: name, age: age });
+    onSubmitUser({ id, name, age });
   };
 
   return (
-    <form className={styles['user-form']} onSubmit={handleSubmit}>
-      <FormInput label="Name" value={name} changeValue={setName} />
-      <FormInput type="number" label="Age" value={age} changeValue={setAge} />
-      <Button>Add User</Button>
-    </form>
+    <Card>
+      <form onSubmit={handleSubmit}>
+        <FormInput label="Name" value={name} changeValue={setName} />
+        <FormInput type="number" label="Age" value={age} changeValue={setAge} />
+        <Button>{isEditing ? 'Edit User' : 'Add User'}</Button>
+      </form>
+    </Card>
   );
 };
 

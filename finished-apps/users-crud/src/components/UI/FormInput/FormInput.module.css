@@ -1,0 +1,23 @@
+.form-input {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+.input {
+  margin-bottom: 16px;
+  padding: 8px 12px;
+  border: 2px #ccc solid;
+  border-radius: 4px;
+  transition: all 0.2s ease-in-out;
+}
+
+.input:focus,
+.input:hover {
+  outline: none;
+  border-color: blueviolet;
+}

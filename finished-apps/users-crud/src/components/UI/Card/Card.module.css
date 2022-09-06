@@ -1,6 +1,7 @@
-.user-form {
+.container {
   width: 50%;
   background-color: #fff;
   padding: 20px;
   border-radius: 16px;
+  margin-top: 16px;
 }
