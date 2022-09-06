@@ -15,7 +15,7 @@ const App = () => {
       <Expenses expenses={expenses} />
     </div>
   );
-  // ? JSX without syntatic sugar
+  // NOTE JSX without syntatic sugar
   // return React.createElement(
   //   'div',
   //   {},

@@ -10,7 +10,7 @@ interface ExpenseFormProps {
 }
 
 const ExpenseForm = ({ onSaveExpense }: ExpenseFormProps) => {
-  // ? form properties approach
+  // NOTE form properties approach
   const [enteredTitle, setEnteredTitle] = useState('');
   const [enteredAmount, setEnteredAmount] = useState('');
   const [enteredDate, setEnteredDate] = useState<string>('2022-09-04');
@@ -28,7 +28,7 @@ const ExpenseForm = ({ onSaveExpense }: ExpenseFormProps) => {
     setEnteredDate(event.target.value);
   };
 
-  // ? form object approach
+  // NOTE form object approach
   //   const [userInput, setUserInput] = useState<ExpenseUserInput>({
   //     enteredTitle: '',
   //     enteredAmount: '',

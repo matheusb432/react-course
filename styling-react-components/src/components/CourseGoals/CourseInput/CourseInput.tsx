@@ -20,7 +20,7 @@ const FormControl = ({ children, className }: FormControlProps) => (
   <div className={className}>{children}</div>
 );
 
-// ? Styled component
+// NOTE Styled component
 const StyledFormControl = styled(FormControl)`
   margin: 0.5rem 0;
 
@@ -72,7 +72,7 @@ const CourseInput = ({ onAddGoal }: CourseInputProps) => {
     onAddGoal(enteredValue);
   };
 
-  /* // ? Dynamic inline styles 
+  /* // NOTE Dynamic inline styles 
   style={{
     borderColor: getValidationColor(),
     backgroundColor: !isValid ? 'salmon' : 'transparent',
@@ -80,13 +80,13 @@ const CourseInput = ({ onAddGoal }: CourseInputProps) => {
 
   return (
     <form onSubmit={formSubmitHandler}>
-      {/* // ? Acessing class names with kebab case by the ['prop name'] notation */}
+      {/* // NOTE Acessing class names with kebab case by the ['prop name'] notation */}
       <div
         className={`${styles['form-control']} ${!isValid && styles.invalid}`}>
         <label>Course Goal</label>
         <input type="text" onChange={goalInputChangeHandler} />
       </div>
-      {/* // ? Styled component being applied */}
+      {/* // NOTE Styled component being applied */}
       {/* <StyledFormControl invalid={!isValid}>
         <label>Course Goal</label>
         <input type="text" onChange={goalInputChangeHandler} />

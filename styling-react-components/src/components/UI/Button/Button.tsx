@@ -9,7 +9,7 @@ interface ButtonProps {
   onClick?: (...args: any[]) => void;
 }
 
-// ? Styled component
+// NOTE Styled component
 // const StyledButton = styled(Button)`
 //   width: 100%;
 //   font: inherit;
@@ -39,7 +39,7 @@ interface ButtonProps {
 const Button = ({ children, type, className, onClick }: ButtonProps) => {
   return (
     <button
-      // ? applying CSS modules styles with styles.{class name}
+      // NOTE applying CSS modules styles with styles.{class name}
       className={`${styles.button}${className ? ' ' + className : ''}`}
       type={type}
       onClick={onClick}>
