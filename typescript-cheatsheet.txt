@@ -1,0 +1,2 @@
+--	Form submit event type => SyntheticEvent
+--	props.children type => ReactNode
