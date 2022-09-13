@@ -1,14 +1,23 @@
+import { CartItemModel } from './cart-item-model';
 import styles from './style.module.scss';
 
 interface CartItemProps {
+  id?: string;
   name: string;
   price: number;
   amount: number;
-  onAdd: () => void;
-  onRemove: () => void;
+  onAdd: (id?: string) => void;
+  onRemove: (id?: string) => void;
 }
 
-const CartItem = ({ name, price, amount, onAdd, onRemove }: CartItemProps) => {
+const CartItem = ({
+  id,
+  name,
+  price,
+  amount,
+  onAdd,
+  onRemove,
+}: CartItemProps) => {
   const formattedPrice = `$${price.toFixed(2)}`;
 
   return (
@@ -21,8 +30,8 @@ const CartItem = ({ name, price, amount, onAdd, onRemove }: CartItemProps) => {
         </div>
       </div>
       <div className={styles.actions}>
-        <button onClick={onRemove}>−</button>
-        <button onClick={onAdd}>+</button>
+        <button onClick={() => onRemove(id)}>−</button>
+        <button onClick={() => onAdd(id)}>+</button>
       </div>
     </li>
   );
