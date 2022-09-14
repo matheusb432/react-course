@@ -6,7 +6,7 @@ interface CardProps {
 }
 
 const Card = ({ children }: CardProps) => {
-  return <></>;
+  return <article className={styles.card}>{children}</article>;
 };
 
 export { Card };

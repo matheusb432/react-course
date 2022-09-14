@@ -1,6 +1,8 @@
-import { useCallback } from 'react';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { Card } from '../../../components';
 import { CartItemModel } from '../../Cart';
 import CartItem from '../../Cart/CartItem/CartItem';
+import { MealItem } from '../MealItem';
 import styles from './style.module.scss';
 
 interface AvailableMealsProps {
@@ -8,23 +10,25 @@ interface AvailableMealsProps {
 }
 
 const AvailableMeals = ({ meals }: AvailableMealsProps) => {
-  const handleAddMeal = (id?: string) => {};
-  const handleRemoveMeal = (id?: string) => {};
+  const [renderedMeals, setRenderedMeals] = useState<ReactNode[]>([]);
 
   const renderMeals = useCallback(() => {
     return meals.map((meal) => {
-      return (
-        <CartItem
-          {...meal}
-          amount={1}
-          onAdd={handleAddMeal}
-          onRemove={handleRemoveMeal}
-        />
-      );
+      return <MealItem meal={meal} onAddMeal={() => handleAddMeal(meal.id)} />;
     });
   }, [meals]);
 
-  return <section className={styles.meals}>{'meals'}</section>;
+  useEffect(() => {
+    setRenderedMeals(renderMeals());
+  }, [renderMeals, meals]);
+
+  const handleAddMeal = (id?: string) => {};
+
+  return (
+    <Card>
+      <section className={styles.meals}>{renderedMeals}</section>
+    </Card>
+  );
 };
 
 export { AvailableMeals };

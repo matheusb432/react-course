@@ -1,18 +1,22 @@
 import { ReactNode } from 'react';
+import { CartIcon } from '../CartIcon';
 import styles from './style.module.scss';
 
 interface CartButtonProps {
   children: ReactNode;
+  items: number;
   onClick: () => void;
 }
 
-const CartButton = ({ children, onClick }: CartButtonProps) => {
+const CartButton = ({ children, items, onClick }: CartButtonProps) => {
   return (
     <div className={styles.bump}>
       <button className={styles.button} onClick={onClick}>
+        <div className={styles.icon}>
+          <CartIcon />
+        </div>
         {children}
-        <div className={styles.icon}></div>
-        <div className={styles.badge}></div>
+        <div className={styles.badge}>{items}</div>
       </button>
     </div>
   );

@@ -1,9 +1,17 @@
+import { ReactNode } from 'react';
 import styles from './style.module.scss';
 
-interface ModalProps {}
+interface ModalProps {
+  children: ReactNode;
+}
 
-const Modal = ({}: ModalProps) => {
-  return <></>;
+const Modal = ({ children }: ModalProps) => {
+  return (
+    <>
+      <div className={styles.backdrop}></div>
+      <div className={styles.modal}>{children}</div>
+    </>
+  );
 };
 
 export { Modal };
