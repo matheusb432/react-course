@@ -1,2 +1,2 @@
 export * from './CartItem';
-export type { CartItemModel } from './cart-item-model';
+export * from './cart-item-model';
