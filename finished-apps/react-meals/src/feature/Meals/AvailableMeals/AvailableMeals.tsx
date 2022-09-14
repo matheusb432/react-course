@@ -1,12 +1,11 @@
 import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Card } from '../../../components';
-import { CartItemModel } from '../../Cart';
-import CartItem from '../../Cart/CartItem/CartItem';
 import { MealItem } from '../MealItem';
+import { Meal } from '../types';
 import styles from './style.module.scss';
 
 interface AvailableMealsProps {
-  meals: CartItemModel[];
+  meals: Meal[];
 }
 
 const AvailableMeals = ({ meals }: AvailableMealsProps) => {
@@ -14,7 +13,10 @@ const AvailableMeals = ({ meals }: AvailableMealsProps) => {
 
   const renderMeals = useCallback(() => {
     return meals.map((meal) => {
-      return <MealItem meal={meal} onAddMeal={() => handleAddMeal(meal.id)} />;
+      const id = meal.id ?? Math.random().toString();
+      return (
+        <MealItem key={id} meal={meal} onAddMeal={() => handleAddMeal(id)} />
+      );
     });
   }, [meals]);
 

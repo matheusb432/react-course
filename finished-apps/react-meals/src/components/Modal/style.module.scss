@@ -6,6 +6,14 @@
   height: 100vh;
   z-index: 20;
   background-color: rgba(0, 0, 0, 0.75);
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+.show {
+  opacity: 1 !important;
+  visibility: visible !important;
 }
 
 .modal {
@@ -18,7 +26,16 @@
   border-radius: 14px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
   z-index: 30;
-  animation: slide-down 300ms ease-out forwards;
+  transition: all 0.3s ease-out;
+
+  visibility: hidden;
+  opacity: 0;
+}
+
+.footer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }
 
 @media (min-width: 768px) {

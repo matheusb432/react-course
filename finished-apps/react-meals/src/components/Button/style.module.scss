@@ -7,10 +7,21 @@
   padding: 0.25rem 2rem;
   border-radius: 20px;
   font-weight: bold;
+  transition: all 0.3s ease-in;
+  filter: brightness(1);
 
   &:hover,
   &:active {
-    background-color: #641e03;
-    border-color: #641e03;
+    filter: brightness(0.8);
+  }
+
+  &:focus {
+    filter: brightness(0.6);
+  }
+
+  &.outline {
+    background-color: transparent;
+    border-color: #8a2b06;
+    color: #8a2b06;
   }
 }

@@ -6,6 +6,7 @@ interface ButtonProps {
   disabled?: boolean;
   type?: 'button' | 'submit';
   onClick?: (...args: any[]) => void;
+  outlineStyle?: boolean;
 }
 
 const Button = ({
@@ -13,12 +14,13 @@ const Button = ({
   disabled = false,
   onClick,
   type = 'button',
+  outlineStyle = false,
 }: ButtonProps) => {
   return (
     <button
       type={type}
       disabled={disabled}
-      className={`${styles.button}`}
+      className={`${styles.button} ${outlineStyle ? styles.outline : ''}`}
       onClick={onClick}>
       <div className={styles.children}>{children}</div>
     </button>
