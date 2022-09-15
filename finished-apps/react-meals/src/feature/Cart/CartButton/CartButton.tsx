@@ -1,14 +1,16 @@
 import { ReactNode } from 'react';
 import { CartIcon } from '../CartIcon';
+import { useCartContext } from '../hooks';
 import styles from './style.module.scss';
 
 interface CartButtonProps {
   children: ReactNode;
-  items: number;
   onClick: () => void;
 }
 
-const CartButton = ({ children, items, onClick }: CartButtonProps) => {
+const CartButton = ({ children, onClick }: CartButtonProps) => {
+  const { totalAmount } = useCartContext();
+
   return (
     <div className={styles.bump}>
       <button className={styles.button} onClick={onClick}>
@@ -16,7 +18,7 @@ const CartButton = ({ children, items, onClick }: CartButtonProps) => {
           <CartIcon />
         </div>
         {children}
-        <div className={styles.badge}>{items}</div>
+        <div className={styles.badge}>{totalAmount}</div>
       </button>
     </div>
   );

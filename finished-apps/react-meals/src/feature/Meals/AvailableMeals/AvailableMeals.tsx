@@ -23,6 +23,8 @@ const AvailableMeals = ({ meals }: AvailableMealsProps) => {
         type: CartActions.AddToCart,
         payload: CartItemModel.fromMealWithAmount(meal!, amount!),
       });
+
+      alert(`Added ${amount} ${meal!.name} to cart!`);
     },
     [cartDispatch, meals]
   );
@@ -30,9 +32,7 @@ const AvailableMeals = ({ meals }: AvailableMealsProps) => {
   const renderMeals = useCallback(() => {
     return meals.map((meal) => {
       const id = meal.id ?? Math.random().toString();
-      return (
-        <MealItem key={id} meal={meal} onAddMeal={() => handleAddMeal(id)} />
-      );
+      return <MealItem key={id} meal={meal} onAddMeal={handleAddMeal} />;
     });
   }, [handleAddMeal, meals]);
 

@@ -19,7 +19,9 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      <div className={`${styles.backdrop} ${show && styles.show}`}></div>
+      <div
+        className={`${styles.backdrop} ${show && styles.show}`}
+        onClick={onClose}></div>
       <div className={`${styles.modal} ${show && styles.show}`}>
         {children}
         <footer className={styles.footer}>

@@ -1,9 +1,18 @@
-import { createContext, Dispatch, ReactNode, useReducer } from 'react';
+import {
+  createContext,
+  Dispatch,
+  ReactNode,
+  useCallback,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import { CartAction, cartReducer, CartState, initialState } from './reducer';
 
 interface CartContextProps {
   cartState: CartState;
   cartDispatch: Dispatch<CartAction>;
+  totalAmount: number;
 }
 
 interface CartContextProviderProps {
@@ -13,14 +22,29 @@ interface CartContextProviderProps {
 const CartContext = createContext<CartContextProps>({
   cartState: {} as any,
   cartDispatch: () => {},
+  totalAmount: 0,
 });
 
 const CartContextProvider = ({ children }: CartContextProviderProps) => {
-  // TODO implement 'dispatchCart, cartState' here
   const [cartState, cartDispatch] = useReducer(cartReducer, initialState);
+  const { items } = cartState;
+
+  const [totalAmount, setTotalAmount] = useState(0);
+
+  const getCartCount = useCallback(() => {
+    const amounts = items
+      .map((x) => x.amount)
+      .filter((x) => x != null) as number[];
+
+    return amounts.reduce((a: number, b: number) => a + b, 0);
+  }, [items]);
+
+  useEffect(() => {
+    setTotalAmount(getCartCount());
+  }, [getCartCount]);
 
   return (
-    <CartContext.Provider value={{ cartDispatch, cartState }}>
+    <CartContext.Provider value={{ cartDispatch, cartState, totalAmount }}>
       {children}
     </CartContext.Provider>
   );

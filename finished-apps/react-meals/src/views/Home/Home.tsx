@@ -33,9 +33,7 @@ const Home = () => {
     <>
       <Layout>
         <MainHeader text="ReactMeals">
-          <CartButton onClick={openCart} items={3}>
-            Cart
-          </CartButton>
+          <CartButton onClick={openCart}>Cart</CartButton>
         </MainHeader>
         <MealsSummary />
         <div className={styles.container}>

@@ -22,18 +22,26 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
   switch (type) {
     case CartActions.AddToCart: {
-      const item = items.find((item) => item.id === payload.id);
+      const { id } = payload;
+
+      // NOTE important reminder - no state can be mutated in a reducer or any pure function
+      // * so it's necessary to create a deep clone of the object to change it.
+      const item = structuredClone(items.find((item) => item.id === id));
+
       if (item == null) return { ...state, items: [...items, payload] };
 
-      item.amount++;
+      item.amount = (item.amount ?? 0) + payload.amount!;
 
       return {
         ...state,
-        items: [...items, item],
+        items: [...items.filter((x) => x.id !== id), item],
       };
     }
     case CartActions.DecrementCartItem: {
-      const item = items.find((item) => item.id === payload.id);
+      const item = structuredClone(
+        items.find((item) => item.id === payload.id)
+      );
+      const { id } = payload;
 
       if (!item?.amount) return state;
 
@@ -47,7 +55,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
       return {
         ...state,
-        items: [...items, item],
+        items: [...items.filter((x) => x.id !== id), item],
       };
     }
     case CartActions.RemoveFromCart: {

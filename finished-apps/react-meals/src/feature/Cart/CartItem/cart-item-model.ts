@@ -7,11 +7,13 @@ export class CartItemModel {
   amount?: number;
 
   constructor(
+    id?: string,
     name?: string,
     description?: string,
     price?: number,
     amount?: number
   ) {
+    this.id = id;
     this.name = name;
     this.description = description;
     this.price = price;
@@ -19,14 +21,16 @@ export class CartItemModel {
   }
 
   static fromMeal(meal: Meal) {
-    const { name, description, price } = meal;
+    const { id, name, description, price } = meal;
 
-    return new CartItemModel(name, description, price);
+    return new CartItemModel(id, name, description, price);
   }
 
   static fromMealWithAmount(meal: Meal, amount: number) {
-    const { name, description, price } = meal;
+    const cartItem = this.fromMeal(meal);
 
-    return new CartItemModel(name, description, price, amount);
+    cartItem.amount = amount;
+
+    return cartItem;
   }
 }

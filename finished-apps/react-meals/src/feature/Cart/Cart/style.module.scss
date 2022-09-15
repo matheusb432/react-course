@@ -1,12 +1,9 @@
-.cart {
-}
-
 .cart-items {
-  //   list-style: none;
   all: unset;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow-y: auto;
 }
 
 .total-amount {

@@ -1,5 +1,4 @@
 import { ReactNode } from 'react';
-import { CartButton } from '../../feature/Cart';
 import styles from './style.module.scss';
 
 interface MainHeaderProps {

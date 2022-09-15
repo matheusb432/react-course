@@ -12,6 +12,12 @@ const MealItem = ({ meal, onAddMeal }: MealItemProps) => {
   const { id, name, price, description } = meal;
   const [amount, setAmount] = useState(1);
 
+  const handleAddClick = () => {
+    setAmount(1);
+
+    onAddMeal(id, amount);
+  };
+
   return (
     <article className={styles.meal}>
       <div className={styles['meal-info']}>
@@ -22,9 +28,13 @@ const MealItem = ({ meal, onAddMeal }: MealItemProps) => {
       <div className={styles['meal-actions']}>
         <div className={styles.amount}>
           <span>Amount</span>
-          <input type="number" value={amount} />
+          <input
+            type="number"
+            value={amount}
+            onChange={(e) => setAmount(+e.target.value)}
+          />
         </div>
-        <Button onClick={() => onAddMeal(id, amount)}>+ Add</Button>
+        <Button onClick={handleAddClick}>+ Add</Button>
       </div>
     </article>
   );
