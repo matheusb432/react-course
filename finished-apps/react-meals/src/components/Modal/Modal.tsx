@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from '../Button';
 import styles from './style.module.scss';
 
@@ -19,18 +20,24 @@ const Modal = ({
 }: ModalProps) => {
   return (
     <>
-      <div
-        className={`${styles.backdrop} ${show && styles.show}`}
-        onClick={onClose}></div>
-      <div className={`${styles.modal} ${show && styles.show}`}>
-        {children}
-        <footer className={styles.footer}>
-          <Button onClick={onClose} outlineStyle={true}>
-            Close
-          </Button>
-          <Button onClick={onConfirm}>{confirmText}</Button>
-        </footer>
-      </div>
+      {createPortal(
+        <div
+          className={`${styles.backdrop} ${show && styles.show}`}
+          onClick={onClose}></div>,
+        document.getElementById('backdrop-root')!
+      )}
+      {createPortal(
+        <div className={`${styles.modal} ${show && styles.show}`}>
+          {children}
+          <footer className={styles.footer}>
+            <Button onClick={onClose} outlineStyle={true}>
+              Close
+            </Button>
+            <Button onClick={onConfirm}>{confirmText}</Button>
+          </footer>
+        </div>,
+        document.getElementById('overlay-root')!
+      )}
     </>
   );
 };

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Button } from '../../../components/Button';
+import { MealItemForm } from '../MealItemForm';
 import { Meal } from '../types/meal';
 import styles from './style.module.scss';
 
@@ -10,13 +11,6 @@ interface MealItemProps {
 
 const MealItem = ({ meal, onAddMeal }: MealItemProps) => {
   const { id, name, price, description } = meal;
-  const [amount, setAmount] = useState(1);
-
-  const handleAddClick = () => {
-    setAmount(1);
-
-    onAddMeal(id, amount);
-  };
 
   return (
     <article className={styles.meal}>
@@ -25,17 +19,7 @@ const MealItem = ({ meal, onAddMeal }: MealItemProps) => {
         <span className={styles.description}>{description}</span>
         <span className={styles.price}>${price}</span>
       </div>
-      <div className={styles['meal-actions']}>
-        <div className={styles.amount}>
-          <span>Amount</span>
-          <input
-            type="number"
-            value={amount}
-            onChange={(e) => setAmount(+e.target.value)}
-          />
-        </div>
-        <Button onClick={handleAddClick}>+ Add</Button>
-      </div>
+      <MealItemForm id={id!} onAddMeal={onAddMeal} />
     </article>
   );
 };
