@@ -70,7 +70,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
         items: [],
       };
     default:
-      return state;
+      return { ...state };
   }
 };
 

@@ -1,0 +1,3 @@
+enum MealActions {}
+
+export { MealActions };

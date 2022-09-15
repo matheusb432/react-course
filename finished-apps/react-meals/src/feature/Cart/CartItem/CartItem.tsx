@@ -8,7 +8,7 @@ interface CartItemProps {
 }
 
 const CartItem = ({ item, onAdd, onRemove }: CartItemProps) => {
-  const { id, name, price, amount } = item;
+  const { name, price, amount } = item;
 
   const formattedPrice = `$${price!.toFixed(2)}`;
 
