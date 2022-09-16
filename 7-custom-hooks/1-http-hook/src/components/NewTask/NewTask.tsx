@@ -1,5 +1,7 @@
-import { useState } from 'react';
+import { useCallback } from 'react';
+import { useFetch } from '../../hooks';
 import { Task } from '../../types';
+import { firebaseUrl } from '../../util';
 
 import Section from '../UI/Section';
 import TaskForm from './TaskForm';
@@ -9,39 +11,38 @@ interface NewTaskProps {
 }
 
 const NewTask = ({ onAddTask }: NewTaskProps) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const { isLoading, error, sendRequest: createTaskRequest } = useFetch();
 
-  const enterTaskHandler = async (taskText: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/tasks.json',
-        {
+  const handleCreatedTaskData = useCallback(
+    // NOTE the data will now be the second parameter since handleCreatedTaskData will have taskText binded to it
+    async (taskText: string, data: any) => {
+      const generatedId = data.name;
+      const createdTask = { id: generatedId, text: taskText };
+
+      onAddTask(createdTask);
+    },
+    [onAddTask]
+  );
+
+  const enterTaskHandler = useCallback(
+    async (taskText: string) => {
+      await createTaskRequest({
+        url: `${firebaseUrl}/tasks.json`,
+        options: {
           method: 'POST',
           body: JSON.stringify({ text: taskText }),
           headers: {
             'Content-Type': 'application/json',
           },
-        }
-      );
-
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
-
-      const data = await response.json();
-
-      const generatedId = data.name; // firebase-specific => "name" contains generated id
-      const createdTask = { id: generatedId, text: taskText };
-
-      onAddTask(createdTask);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong!');
-    }
-    setIsLoading(false);
-  };
+        },
+        // NOTE bind() will pre configure the first argument for the handleData in the useFetch hook as taskText
+        // handleData: handleCreatedTaskData.bind(null, taskText),
+        // NOTE however it's better to use the anonymous function since it's simpler
+        handleData: (taskData) => handleCreatedTaskData(taskText, taskData),
+      });
+    },
+    [createTaskRequest, handleCreatedTaskData]
+  );
 
   return (
     <Section>

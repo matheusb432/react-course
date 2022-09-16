@@ -1,44 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
-import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
+import Tasks from './components/Tasks/Tasks';
+import { useFetch } from './hooks';
 import { Task } from './types';
+import { firebaseUrl } from './util';
 
 function App() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
   const [tasks, setTasks] = useState<Task[]>([]);
+  const { error, isLoading, sendRequest } = useFetch();
 
-  const fetchTasks = async (taskText?: string) => {
-    setIsLoading(true);
-    setError(null);
-    try {
-      const response = await fetch(
-        'https://react-http-6b4a6.firebaseio.com/tasks.json'
-      );
+  // NOTE since useFetch will update it's state whenever handleTaskData changes,
+  // * it's necessary to wrap this in a useCallback hook so that it does not cause an infinite loop
+  const handleTasksData = useCallback(async (data: any) => {
+    const loadedTasks: Task[] = [];
 
-      if (!response.ok) {
-        throw new Error('Request failed!');
-      }
-
-      const data = await response.json();
-
-      const loadedTasks: Task[] = [];
-
-      for (const taskKey in data) {
-        loadedTasks.push({ id: taskKey, text: data[taskKey].text });
-      }
-
-      setTasks(loadedTasks);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong!');
+    for (const taskKey in data) {
+      loadedTasks.push({ id: taskKey, text: data[taskKey].text });
     }
-    setIsLoading(false);
-  };
+
+    setTasks(loadedTasks);
+  }, []);
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    sendRequest({
+      url: `${firebaseUrl}/tasks.json`,
+      handleData: handleTasksData,
+    });
+  }, [handleTasksData, sendRequest]);
 
   const taskAddHandler = (task: Task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
@@ -51,7 +40,7 @@ function App() {
         items={tasks}
         loading={isLoading}
         error={error}
-        onFetch={fetchTasks}
+        onFetch={sendRequest}
       />
     </React.Fragment>
   );
