@@ -1,0 +1,44 @@
+import { ReactNode } from 'react';
+import { Task } from '../../types';
+import Section from '../UI/Section';
+import TaskItem from './TaskItem';
+import classes from './Tasks.module.scss';
+
+interface TasksProps {
+  items: Task[];
+  onFetch: (taskText: any) => Promise<void>;
+  error: string | null;
+  loading: boolean;
+}
+
+const Tasks = ({ items, onFetch, error, loading }: TasksProps) => {
+  let taskList = <h2>No tasks found. Start adding some!</h2>;
+
+  if (items.length > 0) {
+    taskList = (
+      <ul>
+        {items.map((task) => (
+          <TaskItem key={task.id}>{task.text}</TaskItem>
+        ))}
+      </ul>
+    );
+  }
+
+  let content: ReactNode = taskList;
+
+  if (error) {
+    content = <button onClick={onFetch}>Try again</button>;
+  }
+
+  if (loading) {
+    content = 'Loading tasks...';
+  }
+
+  return (
+    <Section>
+      <div className={classes.container}>{content}</div>
+    </Section>
+  );
+};
+
+export default Tasks;
