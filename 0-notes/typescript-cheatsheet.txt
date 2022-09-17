@@ -1,5 +1,7 @@
 --	Form submit event type => SyntheticEvent
---	props.children type => ReactNode
---	<input> element props => InputHTMLAttributes<HTMLInputElement>
 
+--	props.children type => ReactNode
+
+--	<input> element props => InputHTMLAttributes<HTMLInputElement>
 	>>	Use case: `extends InputHTMLAttributes<HTMLInputElement>` on component props interface 
+

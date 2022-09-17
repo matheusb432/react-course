@@ -1,0 +1,252 @@
+===  Create React App (https://create-react-app.dev/docs/adding-typescript/)
+
+  >>  npx create-react-app {nome do projeto} --template typescript
+
+  >>  SCSS 
+    >>  npm i sass
+  >>  Routing 
+    >>  npm i react-router-dom @types/react-router-dom
+
+===  Snippets
+  --  nfn => const $1 = () => {}
+  --  icss => import './$1.css';
+  --  isfc => arrow function component + import
+
+===  Fundamentals
+  --  React is a client-side JavaScript library that enables building modern, reactive user interfaces in a more scalable way.
+
+  --  React allows us to write code in a declarative, component focused approach, and components allows us to create re-usable and reactive components consisting of HTML, JS & CSS
+
+  --  React is used to control the entire frontend of a web app, also is an SPA which basically means that after the initial request to a page, React takes over and any subsequent requests to new pages are just DOM manipulations executed by React.
+
+  --  Traditionally (React <16.8, before React Hooks) class components were required to manage state
+
+  --  A component in React is just a special kind of function.
+
+  --  Whenever a stateful value is updated, component functions in React are run again to build the updated version of the template to render.
+
+  --  By convention, react components are named in PascalCase in order to easily
+      differentiate HTML DOM Elements which are in camelCase.
+
+  --  Custom Hooks allow you to encapsulate logic and share it in components, which essentially decouples all business logic of a component from it and makes it so the components are much more simplified and maintainable.
+
+  --  Whenever a component's state changes, the entire component is re-executed but only the difference between the virtual React DOM snapshot will be re-rendered.
+
+  --  Even if the props do not change, any child component's function will also be re-executed when it's parent component's function is re-executed
+    --  To optimize this, a React.memo() function should wrap the function component's code
+
+    --  However React.memo() should only be used on more nested component trees so that the performance loss from storing the props comparisons is not greater than the re-evaluation itself 
+
+===  Key Concepts
+  --  Controller Component
+    --  A component where it's state management is not handled by itself, but in it's parent component
+
+  --  Stateless Component
+    --  Also known as Dumb/Presentational component
+
+    --  A component that cannot change state, it only exists to output data, and most components will be like this in React apps.
+
+  --  List Keys
+    --  When a list (JSX array) without keys is rendered, whenever a new item is added React will need to re-render the entire list because it can't know which item to update, which causes poor performance.
+
+    --  So it's necessary that each list item has a unique key to improve performance and preventing bugs, in way of improving React's item trackability.
+
+  --  React DevTools
+    --  It's possible to visualize your project's component tree, their properties and other data by viewing the `Components` tab in the web developer console with the React DevTools extension installed
+
+  --  Strict Mode
+    --  In development mode, applications in React by default have a 'strict mode', which runs initializers, functional components and updaters twice.
+
+    --  This is to prevent bugs from faulty logic due to your functions not being pure functions, so a function that has side effects or is not idempotent is caught as a bug because of strict mode.
+      --  on pure functions -  https://en.wikipedia.org/wiki/Pure_function
+
+===  Typing
+  --  props.children type => React.ReactNode
+
+===  Styling
+  --  By default, CSS styles in React are not scoped, meaning any {class}.css file is applied instead as a global style, which can be very problematic and cause bugs due to classes sharing names.
+
+  --  The solution to this is to:
+    1 - Use the styled-components npm package, which enables the feature to apply styles to components with individual elements, which can create a component tree very similar to Flutter's.
+
+      ==  Can be quite complex and hard to maintain, most developers prefer CSS Modules due to their simplicity and familiarity
+
+    OR
+
+    2 - Use CSS Modules, by simpling naming a CSS file like '{class}.module.css', React understands that this class should be scoped to its module. 
+
+      ==  Just be careful when using element selectors in module CSS files, since they'll just be applied globally. 
+
+===  Context API
+  --  Using React Context allows for global app data sharing in your application and enables easier data sharing
+
+  --  Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
+
+  --  It can be very useful when state props need to be passed up to then be visible to multiple component to instead use context, where only the components that actually need those state props get access to it.
+
+  --  React Context is NOT optimized for high frequency changes (multiple changes per second)
+    --  Redux is on the other hand
+
+  --  React context shouldn't replace ALL component communications and props
+
+  --  It is very similar to Angular state management using services
+
+===  Forms
+  ==  Inputs
+    --  useRef() to manage input values are ideal when the form value is only important on submit
+
+    --  While stateful values are ideal when the value is important on every change, like when validating on every keystroke
+
+
+
+===  React Routing
+  --  <Outlet /> is similar to Angular's <router-outlet>, it defines a place where nested router components will render 
+
+===  React Hooks
+  ===  Core Concepts
+    --  React hooks must only be called in React functions or custom hooks.
+
+    --  React hooks must always be called at the top level, so never at nested functions or block statements.
+
+    --  Custom Hooks are essentially a way to outsource stateful logic into re-usable functions, unlike other functions they can use React Hooks and leverage state in them.
+
+    >>  useState vs useReducer for state management
+      ==  useState
+        --  Great for independent pieces of state/data
+        --  Also great if state updates are easy and limited to a few kinds of updates
+
+      ==  useReducer
+        --  Great if you have more complex state updates
+        --  Should be considered if you have related pieces of state/data
+        --  Might be overkill if it's a simple state that only switches between 2 values
+
+
+  ===:: useMemo() Hook
+
+    --  Memoizes (stores) the result of a value that comes from an expression, it can be really useful when some component data is really expensive to be re-calculated.
+
+    --  Is necessary when a React.memo()'d component needs to receive an array or object in its props, useMemo() makes it so the value, which in this case is the reference, of those reference types will only update when necessary.
+
+    ---------------------------------------------------
+    const sortedList = useMemo(() => {
+      return items.sort((a, b) => a - b)
+    }, [items]);
+    ---------------------------------------------------
+    const listItems = useMemo(() => [5, 3, 10], []);
+
+    <DemoList items={listItem} />
+
+    ---------------------------------------------------
+
+  ===:: useRef() Hook
+
+    -- Will track a HTML element and set an updated reference to it, can be much easier to implement form state than by useState.
+
+    -- Also best pratice to use when an input is readonly
+
+    ---------------------------------------------------
+  >> const nameInputRef = useRef<HTMLInputElement | null>(null);
+  
+  ...
+
+  >> const name = nameInputRef.current!.value;
+
+  ...
+
+  >> <input id="username" type="text" ref={nameInputRef} />
+
+
+    ---------------------------------------------------
+
+  ===:: useReducer() Hook
+    --  Use reducer implements something akin to React Redux's features without using it's boilerplate
+
+    --  When updating a state that depends on another state, it might be a good idea to try to use useReducer to solve this problem cleanly
+
+    --  With it, you can create a stateful value and assign to it a dispatch function that can call a reducer function to update it's value
+
+    --  One use case would be to center all actions that modify a todo list, such as adding, toggling and deleting it, in a reducer function that can be called in any React component by just passing the dispatch function as a prop to it. 
+
+    ==  Syntax:
+      --  const [{data}, {function to call reducer}] = 
+            useReducer(
+              {reducer function}, 
+              {initial data value}, 
+              {function to set initial state programatically (optional)}
+            )
+
+      --  const [todoList, dispatch] = useReducer(reducer, [])
+
+  ===:: useState() Hook
+  	>> const [value, setValue] = useState({defaultValue}) 
+
+  	-- You can manipulate reactive values using the hook useState()
+
+  	-- Whenever the reactive value changes, React will automatically rebuild
+  	   the UI to register any changes, so rendering data manually whenever you
+  	   set the data is redundant.
+
+    --  If the state update depends on the previous state, use:
+      >>  useState((prevState) => {
+      return {...prevState, . . .};
+      })
+
+  ===:: useEffect() Hook
+   
+    --  useEffect fundamentally exists to properly handle side effects in React.
+
+    --  When only nested properties are relevant to a useEffect call, those nested properties should be defined as dependencies instead of the object, or else the useEffect will re-run whenever ANY of the object's properties change.
+
+      -- So use `[someObject.someProperty]` or `[someProperty]` instead of `[someObject]` whenever the effect only depends on that property.
+
+    --  Using useEffect() without a dependency array will make the effect callback
+        be called whenever a stateful value is changed in the component, meaning if
+        a setStateAction() is called in it, it will cause an infinite loop.
+
+      --  It is also the exact equivalent of just running the function in component top level.
+      ---------------------------------------------------
+        useEffect(() => console.log('Hello World!'));
+      ---------------------------------------------------
+
+    --  Adding the [] to the useEffect() dependencies will guarantee it will only run once, which is when the component is initialized, this prevents an infinite loop that triggers whenever a setStateAction() is called.
+
+    --  Note that it's very functionally similar to ngOnInit()
+    ---------------------------------------------------   
+          useEffect(() => {
+            fetch('http://localhost:3000/api/question/1424')
+              .then((res) => res?.json())
+              .then(setQuestion);
+          }, []);
+    ---------------------------------------------------
+
+      -- By adding [data] to the useEffect() hook dependencies list, React will rerun the code in this hook whenever the value of the reactive variable changes.
+
+      --  Any data that is used in the useEffect function should be added in the dependency array
+    ---------------------------------------------------
+          useEffect(() => {
+            fetch('http://localhost:3000/api/question/1424')
+              .then((res) => res?.json())
+              .then(setQuestion);
+          }, [data]); 
+    ---------------------------------------------------
+
+  ===:: useCallback() Hook
+
+    -- Returns a memoized version of a callback/function that only changes when their dependencies change, useful when the function does a lot of computation and can have what is essentially a cache of itself while it's dependencies don't change.
+
+    ---------------------------------------------------
+    const renderUsers = useCallback(() => {
+      return (
+        <ul>
+          {users.map(
+            (x: IUser): JSX.Element => (
+              <li key={x.id}>
+                {x.id} | {x.name} is {x.age} years old
+              </li>
+            )
+          )}
+        </ul>
+      );
+    }, [users]);
+    ---------------------------------------------------
+
