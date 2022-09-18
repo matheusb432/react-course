@@ -1,3 +1,6 @@
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { useHttp } from '../../../hooks';
+import { CartForm, Order } from '../CartForm';
 import { CartItemModel } from '../CartItem';
 import CartItem from '../CartItem/CartItem';
 import { useCartContext } from '../hooks';
@@ -9,27 +12,38 @@ interface CartProps {
 }
 
 const Cart = ({ items }: CartProps) => {
-  const { cartDispatch } = useCartContext();
+  const {
+    cartState: { totalPrice },
+    cartDispatch,
+  } = useCartContext();
 
-  const handleAddItem = (cart: CartItemModel) => {
-    const cartToAdd = structuredClone(cart);
-    cartToAdd.amount = 1;
-    cartDispatch({
-      type: CartActions.AddToCart,
-      payload: cartToAdd,
-    });
-  };
+  const [renderedItems, setRenderedItems] = useState<ReactNode | null>(null);
 
-  const handleRemoveItem = (cart: CartItemModel) => {
-    const cartToRemove = structuredClone(cart);
+  const handleAddItem = useCallback(
+    (cart: CartItemModel) => {
+      const cartToAdd = structuredClone(cart);
+      cartToAdd.amount = 1;
+      cartDispatch({
+        type: CartActions.AddToCart,
+        payload: cartToAdd,
+      });
+    },
+    [cartDispatch]
+  );
 
-    cartDispatch({
-      type: CartActions.DecrementCartItem,
-      payload: cartToRemove,
-    });
-  };
+  const handleRemoveItem = useCallback(
+    (cart: CartItemModel) => {
+      const cartToRemove = structuredClone(cart);
 
-  const renderItems = () => {
+      cartDispatch({
+        type: CartActions.DecrementCartItem,
+        payload: cartToRemove,
+      });
+    },
+    [cartDispatch]
+  );
+
+  const renderItems = useCallback(() => {
     items.sort((a, b) => (a.id! > b.id! ? -1 : 1));
 
     return items.map((item) => (
@@ -40,11 +54,19 @@ const Cart = ({ items }: CartProps) => {
         onRemove={handleRemoveItem}
       />
     ));
-  };
+  }, [handleAddItem, handleRemoveItem, items]);
+
+  useEffect(() => {
+    setRenderedItems(renderItems());
+  }, [renderItems]);
+
   return (
     <>
-      <ul className={styles['cart-items']}>{renderItems()}</ul>
-      <div className={styles['total-amount']}></div>
+      <ul className={styles['cart-items']}>{renderedItems}</ul>
+      <div className={styles['total-amount']}>
+        <span>Total Amount</span>
+        <span>${totalPrice.toFixed(2)}</span>
+      </div>
     </>
   );
 };

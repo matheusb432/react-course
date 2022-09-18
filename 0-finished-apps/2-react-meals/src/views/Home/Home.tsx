@@ -2,11 +2,16 @@ import { ReactNode, useCallback, useEffect, useState } from 'react';
 import { Button, Card, MainHeader, Modal } from '../../components';
 import { Layout } from '../../components/Layout';
 import { Cart, CartButton } from '../../feature/Cart';
+import {
+  CartForm,
+  CartFormForwardRef,
+  Order,
+} from '../../feature/Cart/CartForm';
 import { useCartContext } from '../../feature/Cart/hooks';
 import { AvailableMeals } from '../../feature/Meals/AvailableMeals';
 import { useMealContext } from '../../feature/Meals/hooks';
 import { MealsSummary } from '../../feature/Meals/MealsSummary';
-import { useHttp } from '../../hooks';
+import { useElementRef, useHttp } from '../../hooks';
 import styles from './style.module.scss';
 
 const Home = () => {
@@ -14,7 +19,7 @@ const Home = () => {
     mealState: { meals },
     isLoadingMeals,
     errorMeals,
-    requestMeals,
+    fetchMeals: requestMeals,
   } = useMealContext();
   const [showModal, setShowModal] = useState(false);
   const [renderedContent, setRenderedContent] = useState<ReactNode | null>(
@@ -23,8 +28,15 @@ const Home = () => {
   const {
     isLoading: isLoadingOrder,
     error: orderError,
-    request: orderRequest,
+    put: orderUpdate,
   } = useHttp();
+  const {
+    isLoading: isLoadingCreateOrder,
+    error: createOrderError,
+    post: createOrder,
+  } = useHttp();
+
+  const formRef = useElementRef<CartFormForwardRef>();
 
   const renderContent = useCallback(() => {
     if (isLoadingMeals) return setRenderedContent(<p>Loading...</p>);
@@ -65,10 +77,32 @@ const Home = () => {
   };
 
   const handleOrderMeal = async () => {
-    await orderRequest({
-      method: 'PUT',
+    const { name, address, isValid, touchInputs, resetInputs } =
+      formRef.current!;
+
+    touchInputs();
+
+    if (!isValid) return;
+
+    resetInputs();
+
+    await orderUpdate({
       url: '/cart.json',
       data: cartItems,
+    });
+
+    const order = { name, address };
+
+    handleSubmit(order);
+  };
+
+  const handleSubmit = async (order: Order) => {
+    order.id = Math.random().toString();
+    order.cartItems = cartItems;
+
+    await createOrder({
+      url: 'orders.json',
+      data: order,
     });
   };
 
@@ -94,6 +128,7 @@ const Home = () => {
         isLoadingConfirm={isLoadingOrder}
         confirmText="Order">
         <Cart items={cartItems} />
+        <CartForm onSubmit={handleSubmit} ref={formRef} />
       </Modal>
     </>
   );

@@ -16,7 +16,6 @@ const initialState: MealState = {
 
 const mealReducer = (state: MealState, action: MealAction): MealState => {
   const { type, payload } = action;
-  // const { meals} = state;
   const { meals } = state;
 
   switch (type) {

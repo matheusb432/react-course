@@ -31,7 +31,35 @@ function useHttp() {
     [handleError]
   );
 
-  return { isLoading, error, request };
+  const put = useCallback(
+    async (options: UseHttpOptions) => {
+      await request({ ...options, method: 'PUT' });
+    },
+    [request]
+  );
+
+  const post = useCallback(
+    async (options: UseHttpOptions) => {
+      await request({ ...options, method: 'POST' });
+    },
+    [request]
+  );
+
+  const get = useCallback(
+    async (options: UseHttpOptions) => {
+      await request({ ...options, method: 'GET' });
+    },
+    [request]
+  );
+
+  const del = useCallback(
+    async (options: UseHttpOptions) => {
+      await request({ ...options, method: 'DELETE' });
+    },
+    [request]
+  );
+
+  return { isLoading, error, request, get, post, put, del };
 }
 
 export { useHttp };

@@ -31,13 +31,8 @@ const CartContext = createContext<CartContextProps>({
 
 const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [cartState, cartDispatch] = useReducer(cartReducer, initialState);
-  const { items } = cartState;
 
-  const {
-    isLoading: isLoadingCart,
-    error: errorCart,
-    request: requestCart,
-  } = useHttp();
+  const { get: fetchCart } = useHttp();
 
   const handleFetchCart = useCallback(
     (data: FirebaseResponse<CartItemModel>) => {
@@ -51,7 +46,6 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
 
   const fetchCartOptions = useMemo(
     () => ({
-      method: 'GET',
       url: '/cart.json',
       handleData: handleFetchCart,
     }),
@@ -59,8 +53,8 @@ const CartContextProvider = ({ children }: CartContextProviderProps) => {
   );
 
   useEffect(() => {
-    requestCart(fetchCartOptions);
-  }, [requestCart, fetchCartOptions]);
+    fetchCart(fetchCartOptions);
+  }, [fetchCart, fetchCartOptions]);
 
   return (
     <CartContext.Provider value={{ cartDispatch, cartState }}>

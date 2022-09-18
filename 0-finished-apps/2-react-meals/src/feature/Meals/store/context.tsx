@@ -19,7 +19,7 @@ interface MealContextProps {
   mealDispatch: Dispatch<MealAction>;
   isLoadingMeals: boolean | undefined;
   errorMeals: string | null;
-  requestMeals: (options?: UseHttpOptions) => Promise<void>;
+  fetchMeals: (options?: UseHttpOptions) => Promise<void>;
 }
 
 interface MealContextProviderProps {
@@ -31,7 +31,7 @@ const MealContext = createContext<MealContextProps>({
   mealDispatch: () => {},
   isLoadingMeals: false,
   errorMeals: null,
-  requestMeals: () => Promise.resolve(),
+  fetchMeals: () => Promise.resolve(),
 });
 
 const MealContextProvider = ({ children }: MealContextProviderProps) => {
@@ -39,7 +39,7 @@ const MealContextProvider = ({ children }: MealContextProviderProps) => {
   const {
     isLoading: isLoadingMeals,
     error: errorMeals,
-    request: requestMeals,
+    get: fetchMeals,
   } = useHttp();
 
   const handleFetchMeals = useCallback((data: FirebaseResponse<Meal>) => {
@@ -51,7 +51,6 @@ const MealContextProvider = ({ children }: MealContextProviderProps) => {
 
   const fetchMealsOptions = useMemo(
     () => ({
-      method: 'GET',
       url: '/meals.json',
       handleData: handleFetchMeals,
     }),
@@ -59,8 +58,8 @@ const MealContextProvider = ({ children }: MealContextProviderProps) => {
   );
 
   useEffect(() => {
-    requestMeals(fetchMealsOptions);
-  }, [requestMeals, fetchMealsOptions]);
+    fetchMeals(fetchMealsOptions);
+  }, [fetchMeals, fetchMealsOptions]);
 
   return (
     <MealContext.Provider
@@ -69,8 +68,7 @@ const MealContextProvider = ({ children }: MealContextProviderProps) => {
         mealDispatch,
         isLoadingMeals,
         errorMeals,
-        requestMeals: (options?: UseHttpOptions) =>
-          requestMeals(fetchMealsOptions),
+        fetchMeals: (options?: UseHttpOptions) => fetchMeals(fetchMealsOptions),
       }}>
       {children}
     </MealContext.Provider>

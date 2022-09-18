@@ -9,12 +9,24 @@
   }
 
   input {
-    padding: 0.25rem;
+    padding: 0.5rem;
     font-size: 1rem;
     border: 1px solid #ad5502;
 
     &:focus {
       outline: none;
+    }
+  }
+}
+
+.invalid {
+  input {
+    border: 1px solid #b40e0e;
+    background-color: #fddddd;
+
+    &:focus {
+      border-color: #ff8800;
+      background-color: #fbe8d2;
     }
   }
 }
