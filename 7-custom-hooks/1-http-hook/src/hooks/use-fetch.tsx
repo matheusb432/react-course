@@ -27,7 +27,6 @@ const useFetch = () => {
     }
     setIsLoading(false);
   }, []);
-  //   }, [handleData, options, url]);
 
   return { isLoading, error, sendRequest };
 };
