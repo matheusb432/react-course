@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { MainHeader, Modal } from '../../components';
+import { ReactNode, useCallback, useEffect, useState } from 'react';
+import { Button, Card, MainHeader, Modal } from '../../components';
 import { Layout } from '../../components/Layout';
 import { Cart, CartButton } from '../../feature/Cart';
 import { useCartContext } from '../../feature/Cart/hooks';
@@ -11,8 +11,26 @@ import styles from './style.module.scss';
 const Home = () => {
   const {
     mealState: { meals },
+    isLoadingMeals,
+    errorMeals,
+    requestMeals,
   } = useMealContext();
   const [showModal, setShowModal] = useState(false);
+  const [renderedContent, setRenderedContent] = useState<ReactNode | null>(
+    null
+  );
+
+  const renderContent = useCallback(() => {
+    if (isLoadingMeals) return setRenderedContent(<p>Loading...</p>);
+    if (errorMeals) return setRenderedContent(<p>{errorMeals}</p>);
+    if (!meals?.length) return setRenderedContent(<p>No meals found!</p>);
+
+    setRenderedContent(<AvailableMeals meals={meals} />);
+  }, [errorMeals, isLoadingMeals, meals]);
+
+  useEffect(() => {
+    renderContent();
+  }, [renderContent]);
 
   const {
     cartState: { items: cartItems },
@@ -26,6 +44,10 @@ const Home = () => {
     setShowModal(false);
   };
 
+  const handleFetchMeals = () => {
+    requestMeals();
+  };
+
   const handleOrderMeal = () => {
     console.log('Ordering meal...');
   };
@@ -36,9 +58,14 @@ const Home = () => {
         <MainHeader text="ReactMeals">
           <CartButton onClick={openCart}>Cart</CartButton>
         </MainHeader>
-        <MealsSummary />
+        <MealsSummary>
+          <Button onClick={handleFetchMeals} isLoading={isLoadingMeals}>
+            Fetch Meals
+          </Button>
+        </MealsSummary>
         <div className={styles.container}>
-          <AvailableMeals meals={meals} />
+          <Card>{renderedContent}</Card>
+          {/* <AvailableMeals meals={meals} /> */}
         </div>
       </Layout>
       <Modal

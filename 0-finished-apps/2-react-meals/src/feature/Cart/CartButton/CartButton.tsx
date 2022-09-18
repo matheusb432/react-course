@@ -9,7 +9,9 @@ interface CartButtonProps {
 }
 
 const CartButton = ({ children, onClick }: CartButtonProps) => {
-  const { totalAmount } = useCartContext();
+  const {
+    cartState: { totalAmount },
+  } = useCartContext();
 
   return (
     <div className={styles.bump}>

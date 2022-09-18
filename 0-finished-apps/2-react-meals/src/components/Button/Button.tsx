@@ -7,6 +7,8 @@ interface ButtonProps {
   type?: 'button' | 'submit';
   onClick?: (...args: any[]) => void;
   outlineStyle?: boolean;
+  isLoading?: boolean;
+  loadingText?: string;
 }
 
 const Button = ({
@@ -15,14 +17,18 @@ const Button = ({
   onClick,
   type = 'button',
   outlineStyle = false,
+  isLoading = false,
+  loadingText = 'Loading...',
 }: ButtonProps) => {
   return (
     <button
       type={type}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={`${styles.button} ${outlineStyle ? styles.outline : ''}`}
       onClick={onClick}>
-      <div className={styles.children}>{children}</div>
+      <div className={styles.children}>
+        {isLoading ? loadingText : children}
+      </div>
     </button>
   );
 };

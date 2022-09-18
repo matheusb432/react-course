@@ -3,6 +3,7 @@ enum CartActions {
   DecrementCartItem = 'DECREMENT_CART_ITEM',
   RemoveFromCart = 'REMOVE_FROM_CART',
   ClearCart = 'CLEAR_CART',
+  UpdateTotalAmount = 'UPDATE_TOTAL_AMOUNT',
 }
 
 export { CartActions };

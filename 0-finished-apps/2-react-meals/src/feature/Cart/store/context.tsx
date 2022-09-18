@@ -8,11 +8,11 @@ import {
   useState,
 } from 'react';
 import { CartAction, cartReducer, CartState, initialState } from './reducer';
+import { CartActions } from './types';
 
 interface CartContextProps {
   cartState: CartState;
   cartDispatch: Dispatch<CartAction>;
-  totalAmount: number;
 }
 
 interface CartContextProviderProps {
@@ -22,29 +22,18 @@ interface CartContextProviderProps {
 const CartContext = createContext<CartContextProps>({
   cartState: {} as any,
   cartDispatch: () => {},
-  totalAmount: 0,
 });
 
 const CartContextProvider = ({ children }: CartContextProviderProps) => {
   const [cartState, cartDispatch] = useReducer(cartReducer, initialState);
-  const { items } = cartState;
 
-  const [totalAmount, setTotalAmount] = useState(0);
-
-  const getCartCount = useCallback(() => {
-    const amounts = items
-      .map((x) => x.amount)
-      .filter((x) => x != null) as number[];
-
-    return amounts.reduce((a: number, b: number) => a + b, 0);
-  }, [items]);
-
+  // TODO remove
   useEffect(() => {
-    setTotalAmount(getCartCount());
-  }, [getCartCount]);
+    cartDispatch({ type: CartActions.UpdateTotalAmount });
+  }, []);
 
   return (
-    <CartContext.Provider value={{ cartDispatch, cartState, totalAmount }}>
+    <CartContext.Provider value={{ cartDispatch, cartState }}>
       {children}
     </CartContext.Provider>
   );

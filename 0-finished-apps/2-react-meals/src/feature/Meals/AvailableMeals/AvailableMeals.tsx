@@ -40,14 +40,7 @@ const AvailableMeals = ({ meals }: AvailableMealsProps) => {
     setRenderedMeals(renderMeals());
   }, [renderMeals, meals]);
 
-  return (
-    <Card>
-      <section className={styles.meals}>{renderedMeals}</section>
-    </Card>
-  );
+  return <section className={styles.meals}>{renderedMeals}</section>;
 };
 
 export { AvailableMeals };
-function cartDispatch(arg0: { type: any; payload: any }) {
-  throw new Error('Function not implemented.');
-}
