@@ -4,7 +4,7 @@ import { CartActions } from './types';
 
 interface CartAction {
   type: CartActions;
-  payload?: CartItemModel;
+  payload?: CartItemModel | CartItemModel[];
 }
 
 interface CartState {
@@ -13,9 +13,8 @@ interface CartState {
 }
 
 const initialState: CartState = {
-  // TODO remove dummy items
-  items: DUMMY_ITEMS,
-  totalAmount: 0,
+  items: [],
+  totalAmount: getTotalAmount([]),
 };
 
 const cartReducer = (state: CartState, action: CartAction): CartState => {
@@ -23,8 +22,13 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
   const { type, payload } = action;
 
   switch (type) {
+    case CartActions.SetCart:
+      if (!Array.isArray(payload)) return state;
+
+      return dispatchTotalAmount({ ...state, items: payload });
+
     case CartActions.AddToCart: {
-      if (payload == null) return state;
+      if (payload == null || Array.isArray(payload)) return state;
 
       const { id } = payload;
       let newItems = [];
@@ -47,7 +51,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 
     case CartActions.DecrementCartItem: {
-      if (payload == null) return state;
+      if (payload == null || Array.isArray(payload)) return state;
 
       const item = structuredClone(
         items.find((item) => item.id === payload.id)
@@ -71,7 +75,7 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
     }
 
     case CartActions.RemoveFromCart: {
-      if (payload == null) return state;
+      if (payload == null || Array.isArray(payload)) return state;
 
       return dispatchTotalAmount({
         ...state,
@@ -83,14 +87,9 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
       return structuredClone(initialState);
 
     case CartActions.UpdateTotalAmount:
-      const amounts = items
-        ?.map((x) => x.amount)
-        ?.filter((x) => x != null) as number[];
-      const totalAmount = amounts?.reduce((a, b) => a + b, 0);
-
       return {
         ...state,
-        totalAmount: totalAmount ?? 0,
+        totalAmount: getTotalAmount(items),
       };
 
     default:
@@ -100,6 +99,14 @@ const cartReducer = (state: CartState, action: CartAction): CartState => {
 
 const dispatchTotalAmount = (newState: CartState): CartState =>
   cartReducer(newState, { type: CartActions.UpdateTotalAmount });
+
+function getTotalAmount(items: CartItemModel[]): number {
+  const amounts = items
+    ?.map((x) => x.amount)
+    ?.filter((x) => x != null) as number[];
+
+  return amounts?.reduce((a, b) => a + b, 0) ?? 0;
+}
 
 export { cartReducer, initialState };
 export type { CartState, CartAction };

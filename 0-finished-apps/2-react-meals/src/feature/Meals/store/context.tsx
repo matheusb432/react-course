@@ -17,7 +17,7 @@ import { MealActions } from './types';
 interface MealContextProps {
   mealState: MealState;
   mealDispatch: Dispatch<MealAction>;
-  isLoadingMeals: boolean;
+  isLoadingMeals: boolean | undefined;
   errorMeals: string | null;
   requestMeals: (options?: UseHttpOptions) => Promise<void>;
 }

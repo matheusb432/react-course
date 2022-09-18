@@ -1,5 +1,5 @@
 import { createContext, ReactNode } from 'react';
-import { CartContextProvider } from '../feature/Cart/store';
+import { CartContextProvider } from '../feature/Cart/store/context';
 import { MealContextProvider } from '../feature/Meals/store/context';
 
 interface AppContextProps {}

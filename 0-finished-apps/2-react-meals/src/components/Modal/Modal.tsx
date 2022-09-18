@@ -9,6 +9,7 @@ interface ModalProps {
   confirmText: string;
   onClose: () => void;
   onConfirm: () => void;
+  isLoadingConfirm?: boolean;
 }
 
 const Modal = ({
@@ -17,6 +18,7 @@ const Modal = ({
   onClose,
   onConfirm,
   show = true,
+  isLoadingConfirm = false,
 }: ModalProps) => {
   return (
     <>
@@ -33,7 +35,12 @@ const Modal = ({
             <Button onClick={onClose} outlineStyle={true}>
               Close
             </Button>
-            <Button onClick={onConfirm}>{confirmText}</Button>
+            <Button
+              onClick={onConfirm}
+              isLoading={isLoadingConfirm}
+              loadingText="Submitting order...">
+              {confirmText}
+            </Button>
           </footer>
         </div>,
         document.getElementById('overlay-root')!
