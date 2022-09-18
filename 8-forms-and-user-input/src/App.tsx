@@ -1,10 +1,15 @@
-import { SimpleInput } from './components';
+import { BasicForm, SimpleInput } from './components';
 
 function App() {
   return (
-    <div className="app">
-      <SimpleInput />
-    </div>
+    <>
+      <div className="card">
+        <SimpleInput />
+      </div>
+      <div className="card">
+        <BasicForm />
+      </div>
+    </>
   );
 }
 

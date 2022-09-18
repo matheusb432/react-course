@@ -13,7 +13,7 @@ body {
   background-color: #3f3f3f;
 }
 
-.app {
+.card {
   width: 90%;
   max-width: 43rem;
   padding: 1rem;
@@ -76,6 +76,15 @@ button {
   &:active {
     background-color: #33059e;
     border-color: #33059e;
+  }
+
+  &:disabled,
+  &:disabled:hover,
+  &:disabled:active {
+    background-color: #ccc;
+    border-color: #ccc;
+    color: #292929;
+    cursor: not-allowed;
   }
 }
 

@@ -92,10 +92,17 @@
   --  It is very similar to Angular state management using services
 
 ===  Forms
+  --  Formik (https://formik.org/) is a good option for a third-party library for form values and validation state management, however handling form state with hooks is also great.
+
   ==  Inputs
     --  useRef() to manage input values are ideal when the form value is only important on submit
 
     --  While stateful values are ideal when the value is important on every change, like when validating on every keystroke
+
+  ==  UX
+    --  Validating inputs on every stroke is the ideal UX for form validation since it provides instant feedback to the user on what is and isn't valid values
+
+    --  Disabling submit buttons when a form cannot be submitted is a valid strategy, but so is letting a user submit and then touching all inputs to reveal which inputs need to be valid in order for the submission to be possible 
 
 
 
@@ -178,13 +185,13 @@
       --  const [todoList, dispatch] = useReducer(reducer, [])
 
   ===:: useState() Hook
-  	>> const [value, setValue] = useState({defaultValue}) 
+    >> const [value, setValue] = useState({defaultValue}) 
 
-  	-- You can manipulate reactive values using the hook useState()
+    -- You can manipulate reactive values using the hook useState()
 
-  	-- Whenever the reactive value changes, React will automatically rebuild
-  	   the UI to register any changes, so rendering data manually whenever you
-  	   set the data is redundant.
+    -- Whenever the reactive value changes, React will automatically rebuild
+       the UI to register any changes, so rendering data manually whenever you
+       set the data is redundant.
 
     --  If the state update depends on the previous state, use:
       >>  useState((prevState) => {
