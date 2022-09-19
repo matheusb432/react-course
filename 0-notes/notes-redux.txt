@@ -1,0 +1,32 @@
+===  Redux
+  ==  Setup
+
+  ==  Core Concepts
+    --  Redux is a flux-like state management library for cross-component or app-wide state management.
+
+    --  Just like React Context, can be a great, often better, alternative for prop drilling, and is a much more scalable state management solution
+
+    --  Redux has only one central data store, where all state is stored.
+
+  ==  Advantages
+    --  Highly scalable
+
+    --  Performant and built for highly frequent state updates
+
+  ==  Data Communication
+    ==  Core Data Flow
+      >>  Component > Dispatch(Action) > Reducer Function > Store > Components
+        1.  A component dispatches an action
+        2.  That action is forwarded to the reducer function
+        3.  The reducer function reduces the input data
+        4.  The store gets mutated by the reducer and now has a new state 
+        5.  Subscribing components are notified so they can update their UI 
+
+    --  For components to communicate with the store, a subscription is setup so whenever the data changes the store notifies components so that components get the data to use it.
+
+    --  Components NEVER directly manipulate the store data, the store data is immutable and has an unidirectional data flow
+
+    --  For the store data to be mutated/changed, it must be through dispatched Actions that trigger Reducer Functions 
+      ::  Reducer Functions are a general concept that mean functions that can take an input and reduce it to a new output
+
+      ::  Actions are an object that has data which describes an operation that the reducer function will perform

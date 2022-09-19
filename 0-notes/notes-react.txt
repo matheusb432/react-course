@@ -1,16 +1,18 @@
-===  Create React App (https://create-react-app.dev/docs/adding-typescript/)
+===  Setup
 
-  >>  npx create-react-app {nome do projeto} --template typescript
-
+  >>  Create React App (https://create-react-app.dev/docs/adding-typescript/)
+    >>  npx create-react-app {nome do projeto} --template typescript
   >>  SCSS 
     >>  npm i sass
   >>  Routing 
     >>  npm i react-router-dom @types/react-router-dom
 
+
 ===  Snippets
   --  nfn => const $1 = () => {}
   --  icss => import './$1.css';
   --  isfc => arrow function component + import
+
 
 ===  Fundamentals
   --  React is a client-side JavaScript library that enables building modern, reactive user interfaces in a more scalable way.
@@ -37,6 +39,7 @@
 
     --  However React.memo() should only be used on more nested component trees so that the performance loss from storing the props comparisons is not greater than the re-evaluation itself 
 
+
 ===  Key Concepts
   --  Controller Component
     --  A component where it's state management is not handled by itself, but in it's parent component
@@ -60,8 +63,6 @@
     --  This is to prevent bugs from faulty logic due to your functions not being pure functions, so a function that has side effects or is not idempotent is caught as a bug because of strict mode.
       --  on pure functions -  https://en.wikipedia.org/wiki/Pure_function
 
-===  Typing
-  --  props.children type => React.ReactNode
 
 ===  Styling
   --  By default, CSS styles in React are not scoped, meaning any {class}.css file is applied instead as a global style, which can be very problematic and cause bugs due to classes sharing names.
@@ -77,12 +78,14 @@
 
       ==  Just be careful when using element selectors in module CSS files, since they'll just be applied globally. 
 
+
 ===  Context API
   --  Using React Context allows for global app data sharing in your application and enables easier data sharing
 
   --  Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
 
   --  It can be very useful when state props need to be passed up to then be visible to multiple component to instead use context, where only the components that actually need those state props get access to it.
+    --  Note: props being passed like that from the highest level component is called 'prop chains' or 'prop drilling'
 
   --  React Context is NOT optimized for high frequency changes (multiple changes per second)
     --  Redux is on the other hand
@@ -90,6 +93,12 @@
   --  React context shouldn't replace ALL component communications and props
 
   --  It is very similar to Angular state management using services
+
+  ==  Disadvantages to Redux
+    --  Can be complex to manage state in larger apps, such as deeply nested context provider components, or one general context that does too much.
+
+    --  It is not as performant as Redux, as said by a member of the React team, React Context should ideally be used for low frequency unlikely state updates, such as locale or theme, it's poorly optimized for Flux-like state propagation.
+
 
 ===  Forms
   --  Formik (https://formik.org/) is a good option for a third-party library for form values and validation state management, however handling form state with hooks is also great.
@@ -102,12 +111,12 @@
   ==  UX
     --  Validating inputs on every stroke is the ideal UX for form validation since it provides instant feedback to the user on what is and isn't valid values
 
-    --  Disabling submit buttons when a form cannot be submitted is a valid strategy, but so is letting a user submit and then touching all inputs to reveal which inputs need to be valid in order for the submission to be possible 
-
+    --  Disabling submit buttons when a form cannot be submitted is a valid strategy, but so is letting a user submit and then touching all inputs to reveal which inputs need to be valid in order for the submission to be possible
 
 
 ===  React Routing
   --  <Outlet /> is similar to Angular's <router-outlet>, it defines a place where nested router components will render 
+
 
 ===  React Hooks
   ===  Core Concepts
