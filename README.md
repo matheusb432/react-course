@@ -6,7 +6,7 @@
 
 - Folders have been enumerated in the order of which they were added
 
-- Folders with a `0-` prefix contain the most important contents
+- Folders with a `00-` prefix contain the most important contents
 
 ## Notes in Code
 
