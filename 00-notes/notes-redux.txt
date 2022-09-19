@@ -1,5 +1,8 @@
 ===  Redux
+  --  @reduxjs/toolkit ?
+
   ==  Setup
+
 
   ==  Core Concepts
     --  Redux is a flux-like state management library for cross-component or app-wide state management.
@@ -8,10 +11,12 @@
 
     --  Redux has only one central data store, where all state is stored.
 
+
   ==  Advantages
     --  Highly scalable
 
     --  Performant and built for highly frequent state updates
+
 
   ==  Data Communication
     ==  Core Data Flow

@@ -85,7 +85,7 @@
   --  Context is primarily used when some data needs to be accessible by many components at different nesting levels. Apply it sparingly because it makes component reuse more difficult.
 
   --  It can be very useful when state props need to be passed up to then be visible to multiple component to instead use context, where only the components that actually need those state props get access to it.
-    --  Note: props being passed like that from the highest level component is called 'prop chains' or 'prop drilling'
+    ::  props being passed like that from the highest level component is called 'prop chains' or 'prop drilling'
 
   --  React Context is NOT optimized for high frequency changes (multiple changes per second)
     --  Redux is on the other hand
