@@ -1,11 +1,24 @@
 ===  Setup
 
   >>  Create React App (https://create-react-app.dev/docs/adding-typescript/)
-    >>  npx create-react-app {nome do projeto} --template typescript
+    >>  npx create-react-app {project name} --template typescript
+
   >>  SCSS 
     >>  npm i sass
+
   >>  Routing 
     >>  npm i react-router-dom @types/react-router-dom
+
+  >>  Redux
+    >>  npm i redux react-redux
+
+===  Commands
+  >>  Run app
+    >>  npm start
+
+  >>  ESLint
+    >>  npx eslint --ext .ts --ext .tsx src/
+
 
 
 ===  Snippets

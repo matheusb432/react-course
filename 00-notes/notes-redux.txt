@@ -3,6 +3,12 @@
 
   ==  Setup
 
+    >>  Redux
+      >>  npm i redux
+
+    >>  React Redux
+      >>  npm i react-redux
+
 
   ==  Core Concepts
     --  Redux is a flux-like state management library for cross-component or app-wide state management.
