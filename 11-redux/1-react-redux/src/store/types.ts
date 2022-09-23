@@ -3,4 +3,5 @@ export enum CounterActions {
   Decrement = 'DECREMENT',
   Add = 'ADD',
   Reset = 'RESET',
+  Toggle = 'TOGGLE',
 }

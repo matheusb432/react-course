@@ -7,8 +7,9 @@ import { CounterActions } from '../store/types';
 import classes from './Counter.module.scss';
 
 const Counter = () => {
-  // NOTE using Redux useSelector hook to get only a slice of the store
+  // NOTE using Redux useSelector hook to get only a slice of the store.
   const counter = useSelector((state: CounterState) => state.counter);
+  const showCounter = useSelector((state: CounterState) => state.showCounter);
 
   // NOTE getting access to the dispatch function via Redux useDispatch hook
   const dispatch = useDispatch<Dispatch<CounterAction>>();
@@ -26,12 +27,14 @@ const Counter = () => {
     dispatch({ type: CounterActions.Add, payload });
   };
 
-  const toggleCounterHandler = () => {};
+  const toggleCounterHandler = () => {
+    dispatch({ type: CounterActions.Toggle });
+  };
 
   return (
     <main className={classes.counter}>
       <h1>Redux Counter</h1>
-      <div className={classes.value}>{counter}</div>
+      {showCounter && <div className={classes.value}>{counter}</div>}
       <div>
         <button onClick={incrementHandler}>Increment</button>
         <button onClick={() => addCounterHandler(15)}>Add 15</button>

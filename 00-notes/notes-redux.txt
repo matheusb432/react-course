@@ -1,5 +1,4 @@
 ===  Redux
-  --  @reduxjs/toolkit ?
 
   ==  Setup
 
@@ -11,6 +10,7 @@
 
 
   ==  Core Concepts
+
     --  Redux is a flux-like state management library for cross-component or app-wide state management.
 
     --  Just like React Context, can be a great, often better, alternative for prop drilling, and is a much more scalable state management solution
@@ -19,12 +19,14 @@
 
 
   ==  Advantages
+
     --  Highly scalable
 
     --  Performant and built for highly frequent state updates
 
 
   ==  Data Communication
+
     ==  Core Data Flow
       >>  Component > Dispatch(Action) > Reducer Function > Store > Components
         1.  A component dispatches an action
@@ -41,3 +43,20 @@
       ::  Reducer Functions are a general concept that mean functions that can take an input and reduce it to a new output
 
       ::  Actions are an object that has data which describes an operation that the reducer function will perform
+
+
+  ==  Crucial Best Practices
+
+    --  The existing state should NEVER be mutated, so in reducer functions it's crucial that actions only create a new state object which will overwrite the existing state to update it.
+      --  Mutating state can lead to unexpected side effects, such as the state being out of sync and the UI failing to update on a state change.
+
+
+  ==  Redux Toolkit
+    >>  https://redux-toolkit.js.org/tutorials/quick-start
+
+    --  The Redux Toolkit package is intended to be the standard way to write Redux logic. It was originally created to help address three common concerns about Redux:
+      1.  "Configure a Redux store is too complicated"
+      2. "I have to add a lot packages to get Redux to do anything useful"
+      3. "Redux requires too much boilerplate code"
+
+    --  To do that, the toolkit essentially makes it easier to write Redux code and are benefial to all Redux users.
