@@ -1,47 +1,56 @@
 import { useSelector } from 'react-redux';
-import { useDispatch } from 'react-redux/es/exports';
-import { Dispatch } from 'redux';
-import { CounterAction, CounterState } from '../store/reducer';
-import { CounterActions } from '../store/types';
+import { counterActions } from '../store';
+import { AppState } from '../store/reducer';
+import { useCounterDispatch } from '../store/types';
 
 import classes from './Counter.module.scss';
+import { Card } from './UI/Card';
 
 const Counter = () => {
-  // NOTE using Redux useSelector hook to get only a slice of the store.
-  const counter = useSelector((state: CounterState) => state.counter);
-  const showCounter = useSelector((state: CounterState) => state.showCounter);
+  // NOTE [Redux] useSelector hook to get only a slice of the store, in this case the counter state
+  const { counter, showCounter } = useSelector(
+    (state: AppState) => state.counter
+  );
+  // const showCounter = useSelector((state: AppState) => state.showCounter);
 
-  // NOTE getting access to the dispatch function via Redux useDispatch hook
-  const dispatch = useDispatch<Dispatch<CounterAction>>();
+  // NOTE [Redux] getting access to the dispatch function via Redux useDispatch hook
+  // const dispatch = useDispatch<Dispatch<CounterAction>>();
+  // NOTE [Redux Toolkit] Getting the typed dispatch function via the useCounterDispatch custom hook
+  const dispatch = useCounterDispatch();
 
   const incrementHandler = () => {
-    // NOTE calling dispatch with an action object
-    dispatch({ type: CounterActions.Increment });
+    // NOTE [Redux] calling dispatch with an action object
+    // dispatch({ type: CounterActions.Increment });
+    // NOTE [Redux Toolkit] calling dispatch with the action creator
+    dispatch(counterActions.increment());
   };
 
   const decrementHandler = () => {
-    dispatch({ type: CounterActions.Decrement });
+    dispatch(counterActions.decrement());
   };
 
   const addCounterHandler = (payload: number) => {
-    dispatch({ type: CounterActions.Add, payload });
+    // NOTE [Redux Toolkit] will be equivalent to dispatch({ type: CounterActions.Add, payload })
+    dispatch(counterActions.add(payload));
   };
 
   const toggleCounterHandler = () => {
-    dispatch({ type: CounterActions.Toggle });
+    dispatch(counterActions.toggle());
   };
 
   return (
-    <main className={classes.counter}>
-      <h1>Redux Counter</h1>
-      {showCounter && <div className={classes.value}>{counter}</div>}
-      <div>
-        <button onClick={incrementHandler}>Increment</button>
-        <button onClick={() => addCounterHandler(15)}>Add 15</button>
-        <button onClick={decrementHandler}>Decrement</button>
-      </div>
-      <button onClick={toggleCounterHandler}>Toggle Counter</button>
-    </main>
+    <Card>
+      <main className={classes.counter}>
+        <h1>Redux Counter</h1>
+        {showCounter && <div className={classes.value}>{counter}</div>}
+        <div>
+          <button onClick={incrementHandler}>Increment</button>
+          <button onClick={() => addCounterHandler(15)}>Add 15</button>
+          <button onClick={decrementHandler}>Decrement</button>
+        </div>
+        <button onClick={toggleCounterHandler}>Toggle Counter</button>
+      </main>
+    </Card>
   );
 };
 

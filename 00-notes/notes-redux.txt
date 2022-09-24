@@ -8,6 +8,10 @@
     >>  React Redux
       >>  npm i react-redux
 
+    >>  Redux Toolkit
+      >>  npm i @reduxjs/toolkit
+        --  '@reduxjs/toolkit' already includes the 'redux' package
+
 
   ==  Core Concepts
 

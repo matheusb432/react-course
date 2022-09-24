@@ -10,6 +10,13 @@
 
 .control {
   margin-bottom: 0.5rem;
+  transition: all 0.3s ease-out;
+
+  &.invalid {
+    input {
+      border-color: #ff0000;
+    }
+  }
 
   label {
     display: block;
@@ -23,7 +30,12 @@
     width: 20rem;
     margin: auto;
     border-radius: 4px;
-    padding: 0.25rem;
+    padding: 0.5rem;
     border: 1px solid #ccc;
+
+    &:focus {
+      outline: none;
+      border-color: #5b14ac;
+    }
   }
 }

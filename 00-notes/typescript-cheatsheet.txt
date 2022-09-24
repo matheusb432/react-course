@@ -7,3 +7,11 @@
 	--	<input> element props => InputHTMLAttributes<HTMLInputElement>
 		>>	Use case: `extends InputHTMLAttributes<HTMLInputElement>` on component props interface 
 
+	==	Redux
+		--	Reducer function type => Reducer<CounterState, CounterAction>
+
+	==	Redux Toolkit
+		>> 	https://redux-toolkit.js.org/usage/usage-with-typescript
+
+		--	Reducer action type => PayloadAction<T>
+

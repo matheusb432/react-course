@@ -10,7 +10,8 @@
     >>  npm i react-router-dom @types/react-router-dom
 
   >>  Redux
-    >>  npm i redux react-redux
+    >>  npm i react-redux @reduxjs/toolkit
+      --  '@reduxjs/toolkit' already includes the 'redux' package
 
 ===  Commands
   >>  Run app
