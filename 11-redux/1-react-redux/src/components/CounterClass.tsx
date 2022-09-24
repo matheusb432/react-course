@@ -1,8 +1,7 @@
 import { Component } from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { CounterAction, CounterState } from '../store/reducer';
-import { CounterActions } from '../store/types';
+import { CounterActions, CounterAction, CounterState } from '../store/counter';
 
 import classes from './Counter.module.scss';
 

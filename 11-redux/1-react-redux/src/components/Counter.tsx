@@ -1,7 +1,6 @@
 import { useSelector } from 'react-redux';
-import { counterActions } from '../store';
-import { AppState } from '../store/reducer';
-import { useCounterDispatch } from '../store/types';
+import { useCounterDispatch, counterActions } from '../store/counter';
+import { AppState } from '../store/types';
 
 import classes from './Counter.module.scss';
 import { Card } from './UI/Card';
@@ -11,7 +10,6 @@ const Counter = () => {
   const { counter, showCounter } = useSelector(
     (state: AppState) => state.counter
   );
-  // const showCounter = useSelector((state: AppState) => state.showCounter);
 
   // NOTE [Redux] getting access to the dispatch function via Redux useDispatch hook
   // const dispatch = useDispatch<Dispatch<CounterAction>>();

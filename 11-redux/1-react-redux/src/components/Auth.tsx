@@ -1,9 +1,8 @@
 import { SyntheticEvent } from 'react';
 import { useSelector } from 'react-redux';
 import { useInput } from '../hooks';
-import { authActions } from '../store';
-import { AppState } from '../store/reducer';
-import { useAuthDispatch } from '../store/types';
+import { useAuthDispatch, authActions } from '../store/auth';
+import { AppState } from '../store/types';
 import { validateEmail, validateText } from '../utils/validations';
 import classes from './Auth.module.scss';
 import { Card } from './UI/Card';
@@ -62,7 +61,7 @@ const Auth = () => {
             }`}>
             <label htmlFor="email">Email</label>
             <input
-              type="email"
+              type="text"
               id="email"
               value={emailValue}
               onChange={emailChangeHandler}
