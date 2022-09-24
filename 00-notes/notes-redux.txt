@@ -54,6 +54,14 @@
     --  The existing state should NEVER be mutated, so in reducer functions it's crucial that actions only create a new state object which will overwrite the existing state to update it.
       --  Mutating state can lead to unexpected side effects, such as the state being out of sync and the UI failing to update on a state change.
 
+    --  Reducer functions MUST be pure, side-effect free and synchronous.
+      ::  Pure functions -> https://en.wikipedia.org/wiki/Pure_function
+
+      --  On Redux's case, it means that for any reducer function given the same arguments, so the old state and the action object, the new state output should always be the same.
+
+    --  Store values should always be serializable values to assure no data is being accidentally mutated, so no store values can be class instances, for example.
+      ::  https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data 
+
 
   ==  Redux Toolkit
     >>  https://redux-toolkit.js.org/tutorials/quick-start
@@ -64,3 +72,14 @@
       3. "Redux requires too much boilerplate code"
 
     --  To do that, the toolkit essentially makes it easier to write Redux code and are benefial to all Redux users.
+
+
+  ==  Side Effects & Async Tasks
+
+    ==  Where should side effects & async tasks be executed in React?
+      >>  Inside the components via useEffect()
+
+      OR
+
+      >>  Inside the action creators  
+
