@@ -129,6 +129,8 @@
 
 
 ===  React Routing
+  --  React Router is a way to easily implement reactive routing in React SPAs.
+
   --  <Outlet /> is similar to Angular's <router-outlet>, it defines a place where nested router components will render 
 
 
