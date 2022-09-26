@@ -49,7 +49,7 @@
       ::  Actions are an object that has data which describes an operation that the reducer function will perform
 
 
-  ==  Crucial Best Practices
+  ==  Best Practices
 
     --  The existing state should NEVER be mutated, so in reducer functions it's crucial that actions only create a new state object which will overwrite the existing state to update it.
       --  Mutating state can lead to unexpected side effects, such as the state being out of sync and the UI failing to update on a state change.
@@ -61,6 +61,8 @@
 
     --  Store values should always be serializable values to assure no data is being accidentally mutated, so no store values can be class instances, for example.
       ::  https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data 
+
+    --  Logic code, such as data transformation, should preferrably be stored in the reducers, logic in action creators and in components should be avoided.
 
 
   ==  Redux Toolkit
@@ -76,10 +78,5 @@
 
   ==  Side Effects & Async Tasks
 
-    ==  Where should side effects & async tasks be executed in React?
-      >>  Inside the components via useEffect()
-
-      OR
-
-      >>  Inside the action creators  
+    --  Side effects or async code should be in redux's action creators or in components, NEVER in reducers.
 

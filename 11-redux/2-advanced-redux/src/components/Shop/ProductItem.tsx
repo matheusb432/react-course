@@ -1,4 +1,4 @@
-import { useDispatch } from 'react-redux';
+import { useAppDispatch } from '../../store';
 
 import { cartActions } from '../../store/cart-slice';
 import { CartItemModel } from '../../types';
@@ -13,7 +13,7 @@ interface ProductItemProps {
 }
 
 const ProductItem = ({ title, price, description, id }: ProductItemProps) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   const addToCartHandler = () => {
     const newItem = CartItemModel.fromNewProps(id, price, title);

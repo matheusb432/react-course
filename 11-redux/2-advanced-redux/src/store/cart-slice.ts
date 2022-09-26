@@ -32,7 +32,7 @@ const cartSlice = createSlice({
         existingItem.totalPrice += newItem.price;
       }
     },
-    removeItemFromCart(state, action) {
+    removeItemFromCart(state, action: PayloadAction<string>) {
       const { payload: id } = action;
       const existingItem = state.items.find((item) => item.id === id);
 
@@ -45,6 +45,14 @@ const cartSlice = createSlice({
       } else {
         existingItem.quantity--;
       }
+    },
+    replaceCart(state, action: PayloadAction<CartState>) {
+      const {
+        payload: { items, total },
+      } = action;
+
+      state.items = items;
+      state.total = total;
     },
   },
 });

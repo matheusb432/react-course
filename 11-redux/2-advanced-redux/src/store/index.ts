@@ -14,6 +14,7 @@ const useAppSelector = <T>(selector: (state: AppState) => T) =>
   useSelector<AppState, T>(selector);
 
 type AppDispatch = typeof store.dispatch;
+// TODO to useCallback?
 const useAppDispatch = () => useDispatch<AppDispatch>();
 
 export { store, useAppSelector, useAppDispatch };
