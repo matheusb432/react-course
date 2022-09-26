@@ -5,8 +5,8 @@ import Products from './components/Shop/Products';
 import Notification from './components/UI/Notification';
 import { useFetch } from './hooks';
 import { useAppDispatch, useAppSelector } from './store';
+import { fetchCartData, sendCartData } from './store/cart-slice';
 import { uiActions } from './store/ui-slice';
-import { NotificationTypes } from './types';
 import { safeDestructure } from './util';
 
 function App() {
@@ -16,11 +16,10 @@ function App() {
   );
   // NOTE useSelector sets up a subscription to Redux, so whenever the state changes, the component will re-render.
   const cart = useAppSelector((state) => state.cart);
-  const { error, sendRequest } = useFetch();
+  const { sendRequest } = useFetch();
 
   const { status, title, message } = safeDestructure(notification)!;
 
-  // NOTE Side effect handling strategy via updating the backend data whenever the cart state changes with useEffect
   useEffect(() => {
     if (isInitial) {
       dispatch(uiActions.initialize());
@@ -28,6 +27,12 @@ function App() {
       return;
     }
 
+    if (!cart.changed) return;
+
+    // NOTE By using the action creator, reusable logic can be abstracted away from the component.
+    dispatch(sendCartData(cart, sendRequest));
+
+    /* NOTE Side effect handling via updating the backend data whenever the cart state changes with useEffect
     dispatch(
       uiActions.showNotification({
         status: NotificationTypes.Pending,
@@ -51,34 +56,13 @@ function App() {
         );
       },
     });
+    */
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cart, dispatch, sendRequest]);
 
   useEffect(() => {
-    if (error == null) return;
-
-    dispatch(
-      uiActions.showNotification({
-        status: NotificationTypes.Error,
-        title: 'Error!',
-        message: error,
-      })
-    );
-  }, [dispatch, error]);
-
-  // useEffect(() => {
-  //   async function man() {
-  //     await sendRequest({
-  //       url: 'meals.json',
-  //       options: { method: 'GET' },
-  //       // TODO add type
-  //       handleData(data: FirebaseResponse<any>) {
-  //         console.log(data);
-  //       },
-  //     });
-  //   }
-
-  //   man();
-  // }, [sendRequest]);
+    dispatch(fetchCartData(sendRequest));
+  }, [dispatch, sendRequest]);
 
   return (
     <>

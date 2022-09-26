@@ -1,4 +1,6 @@
 import { useCallback, useState } from 'react';
+import { useAppDispatch } from '../store';
+import { showErrorNotification } from '../store/ui-slice';
 import { RequestConfig } from '../types/request-config';
 import { getEnvVar } from '../util';
 
@@ -6,27 +8,40 @@ const baseUrl = getEnvVar('REACT_APP_FIREBASE_URL');
 
 const useFetch = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
+  const dispatch = useAppDispatch();
 
-  const sendRequest = useCallback(async (requestConfig: RequestConfig) => {
-    setIsLoading(true);
-    setError(null);
+  const sendRequest = useCallback(
+    async (requestConfig: RequestConfig) => {
+      if (requestConfig == null) {
+        setError('No request config provided!');
 
-    try {
-      const { url, options, handleData } = requestConfig;
+        return;
+      }
 
-      const response = await fetch(`${baseUrl}/${url}`, options);
+      setIsLoading(true);
+      setError(null);
 
-      if (!response.ok) throw new Error('Request failed!');
+      const { url, options, handleData, handleError } = requestConfig;
+      try {
+        const response = await fetch(`${baseUrl}/${url}`, options);
 
-      const data = await response.json();
+        if (!response.ok) throw new Error('Request failed!');
 
-      handleData?.(data);
-    } catch (err: any) {
-      setError(err.message || 'Something went wrong!');
-    }
-    setIsLoading(false);
-  }, []);
+        const data = await response.json();
+
+        handleData?.(data);
+      } catch (err: any) {
+        setError(err.message || 'Something went wrong!');
+
+        // NOTE Adding fallback error handling logic
+        if (handleError == null) showErrorNotification(dispatch);
+        handleError?.();
+      }
+      setIsLoading(false);
+    },
+    [dispatch]
+  );
 
   return { isLoading, error, sendRequest };
 };

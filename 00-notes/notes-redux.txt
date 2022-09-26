@@ -1,82 +1,96 @@
-===  Redux
+==  Setup
 
-  ==  Setup
+  >>  Redux
+    >>  npm i redux
 
-    >>  Redux
-      >>  npm i redux
+  >>  React Redux
+    >>  npm i react-redux
 
-    >>  React Redux
-      >>  npm i react-redux
-
-    >>  Redux Toolkit
-      >>  npm i @reduxjs/toolkit
-        --  '@reduxjs/toolkit' already includes the 'redux' package
+  >>  Redux Toolkit
+    >>  npm i @reduxjs/toolkit
+      --  '@reduxjs/toolkit' already includes the 'redux' package
 
 
-  ==  Core Concepts
+==  Core Concepts
 
-    --  Redux is a flux-like state management library for cross-component or app-wide state management.
+  --  Redux is a flux-like state management library for cross-component or app-wide state management.
 
-    --  Just like React Context, can be a great, often better, alternative for prop drilling, and is a much more scalable state management solution
+  --  Just like React Context, can be a great, often better, alternative for prop drilling, and is a much more scalable state management solution
 
-    --  Redux has only one central data store, where all state is stored.
-
-
-  ==  Advantages
-
-    --  Highly scalable
-
-    --  Performant and built for highly frequent state updates
+  --  Redux has only one central data store, where all state is stored.
 
 
-  ==  Data Communication
+==  Advantages
 
-    ==  Core Data Flow
-      >>  Component > Dispatch(Action) > Reducer Function > Store > Components
-        1.  A component dispatches an action
-        2.  That action is forwarded to the reducer function
-        3.  The reducer function reduces the input data
-        4.  The store gets mutated by the reducer and now has a new state 
-        5.  Subscribing components are notified so they can update their UI 
+  --  Highly scalable
 
-    --  For components to communicate with the store, a subscription is setup so whenever the data changes the store notifies components so that components get the data to use it.
-
-    --  Components NEVER directly manipulate the store data, the store data is immutable and has an unidirectional data flow
-
-    --  For the store data to be mutated/changed, it must be through dispatched Actions that trigger Reducer Functions 
-      ::  Reducer Functions are a general concept that mean functions that can take an input and reduce it to a new output
-
-      ::  Actions are an object that has data which describes an operation that the reducer function will perform
+  --  Performant and built for highly frequent state updates
 
 
-  ==  Best Practices
+==  Data Communication
 
-    --  The existing state should NEVER be mutated, so in reducer functions it's crucial that actions only create a new state object which will overwrite the existing state to update it.
-      --  Mutating state can lead to unexpected side effects, such as the state being out of sync and the UI failing to update on a state change.
+  ==  Core Data Flow
+    >>  Component > Dispatch(Action) > Reducer Function > Store > Components
+      1.  A component dispatches an action
+      2.  That action is forwarded to the reducer function
+      3.  The reducer function reduces the input data
+      4.  The store gets mutated by the reducer and now has a new state 
+      5.  Subscribing components are notified so they can update their UI 
 
-    --  Reducer functions MUST be pure, side-effect free and synchronous.
-      ::  Pure functions -> https://en.wikipedia.org/wiki/Pure_function
+  --  For components to communicate with the store, a subscription is setup so whenever the data changes the store notifies components so that components get the data to use it.
 
-      --  On Redux's case, it means that for any reducer function given the same arguments, so the old state and the action object, the new state output should always be the same.
+  --  Components NEVER directly manipulate the store data, the store data is immutable and has an unidirectional data flow
 
-    --  Store values should always be serializable values to assure no data is being accidentally mutated, so no store values can be class instances, for example.
-      ::  https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data 
+  --  For the store data to be mutated/changed, it must be through dispatched Actions that trigger Reducer Functions 
+    ::  Reducer Functions are a general concept that mean functions that can take an input and reduce it to a new output
 
-    --  Logic code, such as data transformation, should preferrably be stored in the reducers, logic in action creators and in components should be avoided.
-
-
-  ==  Redux Toolkit
-    >>  https://redux-toolkit.js.org/tutorials/quick-start
-
-    --  The Redux Toolkit package is intended to be the standard way to write Redux logic. It was originally created to help address three common concerns about Redux:
-      1.  "Configure a Redux store is too complicated"
-      2. "I have to add a lot packages to get Redux to do anything useful"
-      3. "Redux requires too much boilerplate code"
-
-    --  To do that, the toolkit essentially makes it easier to write Redux code and are benefial to all Redux users.
+    ::  Actions are an object that has data which describes an operation that the reducer function will perform
 
 
-  ==  Side Effects & Async Tasks
+==  Best Practices
 
-    --  Side effects or async code should be in redux's action creators or in components, NEVER in reducers.
+  --  The existing state should NEVER be mutated, so in reducer functions it's crucial that actions only create a new state object which will overwrite the existing state to update it.
+    --  Mutating state can lead to unexpected side effects, such as the state being out of sync and the UI failing to update on a state change.
 
+  --  Reducer functions MUST be pure, side-effect free and synchronous.
+    ::  Pure functions -> https://en.wikipedia.org/wiki/Pure_function
+
+    --  On Redux's case, it means that for any reducer function given the same arguments, so the old state and the action object, the new state output should always be the same.
+
+  --  Store values should always be serializable values to assure no data is being accidentally mutated, so no store values can be class instances, for example.
+    ::  https://redux-toolkit.js.org/usage/usage-guide#working-with-non-serializable-data 
+
+  --  Logic code, such as data transformation, should preferrably be stored in the reducers, logic in action creators and in components should be avoided.
+
+
+==  Redux Toolkit
+  >>  https://redux-toolkit.js.org/tutorials/quick-start
+
+  --  The Redux Toolkit package is intended to be the standard way to write Redux logic. It was originally created to help address three common concerns about Redux:
+    1.  "Configure a Redux store is too complicated"
+    2. "I have to add a lot packages to get Redux to do anything useful"
+    3. "Redux requires too much boilerplate code"
+
+  --  To do that, the toolkit essentially makes it easier to write Redux code and are benefial to all Redux users.
+
+  ==  Action Creators
+    --  Every method in reducer functions receives action creators so that it can execute an action via the Slice<T>.actions property
+
+
+==  Side Effects & Async Tasks
+
+  --  Side effects or async code should be in redux's action creators or in components, NEVER in reducers.
+
+==  Thunks
+  ::  https://redux.js.org/usage/writing-logic-thunks
+
+  --  The word "thunk" is a programming term that means "a piece of code that does some delayed work".
+
+  --  In Redux, Thunk is an action creator function that delays an action until later, it does NOT return the action itself but another function which eventually returns the action.
+
+  --  Thunks are an extremely effective way to separate side effect handling logic from the UI layer into reusable functions, it can keep even a logic heavy component very lean and simple and facilitates the separation of concerns in an app.
+
+
+==  Redux Devtools
+  --  Browser developer tools that enables an easy way to see all dispatched actions to see the latest state snapshot
+  

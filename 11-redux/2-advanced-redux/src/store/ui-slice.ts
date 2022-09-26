@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { NotificationData } from '../types';
+import { AppDispatch } from '.';
+import { NotificationData, NotificationTypes } from '../types';
 import { deepClone } from '../util';
 import { StateSlices } from './types';
 
@@ -34,5 +35,51 @@ const uiSlice = createSlice({
 
 const uiActions = uiSlice.actions;
 
-export { uiSlice, uiActions };
+// NOTE basic action creators for notification dispatching
+const showPendingNotification = (
+  dispatch: AppDispatch,
+  message = 'Fetching data...'
+) => {
+  dispatch(
+    uiActions.showNotification({
+      status: NotificationTypes.Pending,
+      title: 'Pending...',
+      message,
+    })
+  );
+};
+
+const showSuccessNotification = (
+  dispatch: AppDispatch,
+  message = 'Request succesfully made!'
+) => {
+  dispatch(
+    uiActions.showNotification({
+      status: NotificationTypes.Success,
+      title: 'Success!',
+      message,
+    })
+  );
+};
+
+const showErrorNotification = (
+  dispatch: AppDispatch,
+  message = 'Error fetching data!'
+) => {
+  dispatch(
+    uiActions.showNotification({
+      status: NotificationTypes.Error,
+      title: 'Error!',
+      message,
+    })
+  );
+};
+
+export {
+  uiSlice,
+  uiActions,
+  showPendingNotification,
+  showSuccessNotification,
+  showErrorNotification,
+};
 export type { UiState };
