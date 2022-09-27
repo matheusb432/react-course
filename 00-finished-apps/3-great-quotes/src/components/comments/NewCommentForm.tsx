@@ -1,7 +1,7 @@
 import { SyntheticEvent } from 'react';
 import { useInputRef } from '../../hooks';
 
-import classes from './NewCommentForm.module.css';
+import classes from './NewCommentForm.module.scss';
 
 interface NewCommentFormProps {
   onAddComment: (commentData: { text: string }) => void;

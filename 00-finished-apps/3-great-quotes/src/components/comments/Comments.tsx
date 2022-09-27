@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { CommentModel } from '../../types';
 
-import classes from './Comments.module.css';
+import classes from './Comments.module.scss';
 import NewCommentForm from './NewCommentForm';
 
 const Comments = () => {

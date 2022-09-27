@@ -1,4 +1,5 @@
-import classes from './QuoteItem.module.css';
+import { Link } from 'react-router-dom';
+import classes from './QuoteItem.module.scss';
 
 interface QuoteItemProps {
   id?: string;
@@ -6,7 +7,7 @@ interface QuoteItemProps {
   author: string;
 }
 
-const QuoteItem = ({ text, author }: QuoteItemProps) => {
+const QuoteItem = ({ id, text, author }: QuoteItemProps) => {
   return (
     <li className={classes.item}>
       <figure>
@@ -15,7 +16,9 @@ const QuoteItem = ({ text, author }: QuoteItemProps) => {
         </blockquote>
         <figcaption>{author}</figcaption>
       </figure>
-      <a className="btn">View Fullscreen</a>
+      <Link to={`/quotes/${id}`} className="btn">
+        View Fullscreen
+      </Link>
     </li>
   );
 };

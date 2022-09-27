@@ -1,18 +1,36 @@
-import { Fragment } from 'react';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Quote } from '../../types';
+import { sortList } from '../../util';
 
 import QuoteItem from './QuoteItem';
-import classes from './QuoteList.module.css';
+import classes from './QuoteList.module.scss';
 
 interface QuoteListProps {
   quotes: Quote[];
 }
 
 const QuoteList = ({ quotes }: QuoteListProps) => {
+  const history = useHistory();
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  const isAscending = queryParams.get('sort') === 'asc';
+
+  const sortedQuotes = sortList(quotes, 'id', isAscending);
+
+  const handleChangeSort = () => {
+    history.push(`/quotes?sort=${isAscending ? 'desc' : 'asc'}`);
+  };
+
   return (
-    <Fragment>
+    <>
+      <div className={classes.sorting}>
+        <button onClick={handleChangeSort}>
+          Sort {isAscending ? 'Descending' : 'Ascending'}
+        </button>
+      </div>
       <ul className={classes.list}>
-        {quotes.map((quote) => (
+        {sortedQuotes.map((quote) => (
           <QuoteItem
             key={quote.id}
             id={quote.id}
@@ -21,7 +39,7 @@ const QuoteList = ({ quotes }: QuoteListProps) => {
           />
         ))}
       </ul>
-    </Fragment>
+    </>
   );
 };
 

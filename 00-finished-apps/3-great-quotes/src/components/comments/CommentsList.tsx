@@ -1,6 +1,6 @@
 import { CommentModel } from '../../types';
 import CommentItem from './CommentItem';
-import classes from './CommentsList.module.css';
+import classes from './CommentsList.module.scss';
 
 interface CommentsListProps {
   comments: CommentModel[];

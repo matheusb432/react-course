@@ -14,19 +14,19 @@
 }
 
 .nav {
-  .nav ul {
+  ul {
     list-style: none;
     display: flex;
     margin: 0;
     padding: 0;
   }
 
-  .nav li {
+  li {
     margin-left: 1.5rem;
     font-size: 1.25rem;
   }
 
-  .nav a {
+  a {
     text-decoration: none;
     color: #88dfdf;
 
