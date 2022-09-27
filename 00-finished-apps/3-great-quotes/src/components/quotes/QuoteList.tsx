@@ -1,4 +1,4 @@
-import { useHistory, useLocation } from 'react-router-dom';
+import { useHistory, useLocation, useRouteMatch } from 'react-router-dom';
 import { Quote } from '../../types';
 import { sortList } from '../../util';
 
@@ -19,7 +19,11 @@ const QuoteList = ({ quotes }: QuoteListProps) => {
   const sortedQuotes = sortList(quotes, 'id', isAscending);
 
   const handleChangeSort = () => {
-    history.push(`/quotes?sort=${isAscending ? 'desc' : 'asc'}`);
+    history.push({
+      // NOTE location.pathname is the current path
+      pathname: location.pathname,
+      search: `?sort=${isAscending ? 'desc' : 'asc'}`,
+    });
   };
 
   return (
