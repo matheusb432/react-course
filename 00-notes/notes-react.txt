@@ -41,8 +41,7 @@
 
   --  Whenever a stateful value is updated, component functions in React are run again to build the updated version of the template to render.
 
-  --  By convention, react components are named in PascalCase in order to easily
-      differentiate HTML DOM Elements which are in camelCase.
+  --  By convention, react components are named in PascalCase in order to easily differentiate HTML DOM Elements which are in camelCase.
 
   --  Custom Hooks allow you to encapsulate logic and share it in components, which essentially decouples all business logic of a component from it and makes it so the components are much more simplified and maintainable.
 
@@ -53,29 +52,47 @@
 
     --  However React.memo() should only be used on more nested component trees so that the performance loss from storing the props comparisons is not greater than the re-evaluation itself 
 
+  --  A React SPA is a "Static Website", meaning it's only a client-side app with a Static Website Host.
+
+    ==  Server Side Routing
+      --  Returns the JS and HTML code that the client side app will work with
+
+      --  In SPAs, it should be configured that every route returns the same code on the server side, since the default behavior is to look for diferent HTML files on each route (e.g. /users would look for users.html)
+
+    ==  Client Side Routing
+      --  Like react-router-dom
+
 
 ===  Key Concepts
-  --  Controller Component
+
+  ==  Controller Component
     --  A component where it's state management is not handled by itself, but in it's parent component
 
-  --  Stateless Component
+  ==  Stateless Component
     --  Also known as Dumb/Presentational component
 
     --  A component that cannot change state, it only exists to output data, and most components will be like this in React apps.
 
-  --  List Keys
+  ==  List Keys
     --  When a list (JSX array) without keys is rendered, whenever a new item is added React will need to re-render the entire list because it can't know which item to update, which causes poor performance.
 
     --  So it's necessary that each list item has a unique key to improve performance and preventing bugs, in way of improving React's item trackability.
 
-  --  React DevTools
+  ==  React DevTools
     --  It's possible to visualize your project's component tree, their properties and other data by viewing the `Components` tab in the web developer console with the React DevTools extension installed
 
-  --  Strict Mode
+  ==  Strict Mode
     --  In development mode, applications in React by default have a 'strict mode', which runs initializers, functional components and updaters twice.
 
     --  This is to prevent bugs from faulty logic due to your functions not being pure functions, so a function that has side effects or is not idempotent is caught as a bug because of strict mode.
       --  on pure functions -  https://en.wikipedia.org/wiki/Pure_function
+
+  ==  Lazy Loading
+    --  Lazy loading in React can be implemented quite easily via React.lazy() and wrapping the lazy loaded components with a <Suspense> fallback, this assures the component only gets loaded when needed which splits the code and results in a more optimized app. 
+
+  ==  Deploying
+
+    --  To generate the optimized build code of a CRA app, the `npm run build` command can be ran from the command line.
 
 
 ===  Styling

@@ -1,0 +1,6 @@
+# NOTE Example firebase configuration for deployment, the real file should be .firebaserc
+{
+  "projects": {
+    "default": "your-project-id"
+  }
+}
