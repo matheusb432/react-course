@@ -131,7 +131,9 @@
 ===  React Routing
   --  React Router is a way to easily implement reactive routing in React SPAs.
 
-  --  <Outlet /> is similar to Angular's <router-outlet>, it defines a place where nested router components will render 
+  --  <Outlet /> is similar to Angular's <router-outlet>, it defines a place where nested router components will render
+
+  --  In React Router v6, the order of routes doesn't matter anymore since the routing logic will always look for the best match instead of having a switch logic. 
 
 
 ===  React Hooks
