@@ -36,9 +36,7 @@
   --  React is used to control the entire frontend of a web app, also is an SPA which basically means that after the initial request to a page, React takes over and any subsequent requests to new pages are just DOM manipulations executed by React.
 
   --  Traditionally (React <16.8, before React Hooks) class components were required to manage state
-
-  --  A component in React is just a special kind of function.
-
+  
   --  Whenever a stateful value is updated, component functions in React are run again to build the updated version of the template to render.
 
   --  By convention, react components are named in PascalCase in order to easily differentiate HTML DOM Elements which are in camelCase.
