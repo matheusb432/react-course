@@ -92,7 +92,29 @@
 
   ==  Deploying
 
-    --  To generate the optimized build code of a CRA app, the `npm run build` command can be ran from the command line.
+    --  To generate an optimized build code of a CRA app, the `npm run build` command can be ran from the command line.
+
+  ==  Authentication
+    --  Authentication (Auth) is needed if content should be protected, not accessible by everyone.
+
+    --  Auth can be summed up as a two-step process:
+      1.  Get access/permission
+      2.  Send request to protected resource
+
+    ==  Authentication Strategies
+      --  Auth MUST be handled on a backend server, if auth is completely controlled on the frontend server, it can be easily manipulated and any user can get access by way of modifying the client-side code.
+
+      ==  Server-side Sessions
+        --  Auth is stored on the server and the client, but the client must validate the identifier to the server before actually giving access to a user. 
+
+      ==  Auth Tokens
+        --  Most common practice, usually created in the "JSON Web Token" Format (JWT)
+
+        1.  To generate a token, the server compares sent credentials (such as email and password) to what's stored in the database (via a hashcode, no password should ever be stored in plain text)
+
+        2.  The server creates a "permission" token and a key to hash that data into a string, and then it sends the token to the client.
+
+        3.  Future requests by the client include the token, which is then validated by the server via it's hash key
 
 
 ===  Styling
